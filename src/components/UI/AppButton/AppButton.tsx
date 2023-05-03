@@ -5,7 +5,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
 
-export const MyButton: React.FC<ButtonProps> = (props: ButtonProps) => {
+export const AppButton: React.FC<ButtonProps> = (props: ButtonProps) => {
   return (
     <button {...props} className={style.appBtn}>
       {props.children}
