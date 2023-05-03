@@ -17,9 +17,10 @@
     "paths": {
       "~pages/*": ["./src/pages/*"],
       "~compos/*": ["./src/components/*"],
-      "~interfaces/*": ["./src/interfaces/index.ts"],
+      "~interfaces/*": ["./src/interfaces/interfaces.ts"],
       "~store/*": ["./src/store/*"],
       "~utils/*": ["./src/utils/*"],
+      "~assets/*": ["./src/assets/*"],
     }
   },
   "include": ["./src/**/*", "styled.d.ts"],
