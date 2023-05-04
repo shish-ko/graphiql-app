@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { MyButton } from '~compos/UI/AppButton';
+import { AppButton } from '~compos/UI/AppButton/AppButton';
 import { useAppSelector } from '~utils/userHooks';
 
 export const DefaultUi: React.FC = () => {
@@ -14,7 +14,7 @@ export const DefaultUi: React.FC = () => {
       </h1>
       <Outlet />
       <h1>ToDO: footer</h1>
-      <MyButton disabled={true}>Custom btn example</MyButton>
+      <AppButton disabled={true}>Custom btn example</AppButton>
     </div>
   );
 };
