@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Box, Container, styled, Typography } from '@mui/material';
-import { Auth } from '../Auth';
-
-import './Header.scss';
+import { Auth } from './Auth';
+import { Logo } from './Logo';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -45,10 +44,8 @@ export const Header: React.FC = () => {
     <ElevationScroll>
       <AppBar position="sticky">
         <HeaderWrapper>
-          <Container
-            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}
-          >
-            <Typography>ToDo: Logo</Typography>
+          <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+            <Logo />
             <Typography variant="title">GraphiQL playground</Typography>
             <Auth />
           </Container>
