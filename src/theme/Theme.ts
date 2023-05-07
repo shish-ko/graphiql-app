@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { indigo } from '@mui/material/colors';
+import { pink } from '@mui/material/colors';
 
 export const appTheme = createTheme({
   breakpoints: {
@@ -17,7 +17,7 @@ export const appTheme = createTheme({
       main: grey[50],
     },
     secondary: {
-      main: indigo[900],
+      main: pink[900],
     },
   },
   typography: {

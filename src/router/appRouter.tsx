@@ -3,7 +3,7 @@ import { DefaultUi } from '~pages/DefaultUI/DefaultUI';
 
 const routerObject = createRoutesFromElements(
   <Route path="/" element={<DefaultUi />}>
-    <Route index={true} element={<>{'<h1>1</h1>'.repeat(10000)}</>} />
+    <Route index={true} element={<>Content</>} />
   </Route>
 );
 
