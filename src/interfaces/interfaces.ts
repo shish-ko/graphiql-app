@@ -1,5 +1,11 @@
 import { store } from '../store/reduxStore';
 
+export enum StackDirection {
+  row = 'row',
+  reverse = 'row-reverse',
+  column = 'column',
+}
+
 export interface IUserSlice {
   name: string;
 }
