@@ -3,7 +3,7 @@ import { DefaultUi } from '~pages/DefaultUI/DefaultUI';
 
 const routerObject = createRoutesFromElements(
   <Route path="/" element={<DefaultUi />}>
-    <Route index={true} element={<>Hello</>} />
+    <Route index={true} element={<>Content</>} />
   </Route>
 );
 
