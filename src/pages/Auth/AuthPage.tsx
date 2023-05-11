@@ -5,46 +5,46 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFormData } from '~interfaces/*';
 import { grey, indigo, red } from '@mui/material/colors';
 
+const Form = styled('form')({
+  maxWidth: '550px',
+});
+
+const PaperCss = styled('div')({
+  maxWidth: '550px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  margin: '50px 36px',
+});
+
+const Link = styled(NavLink)({
+  color: grey[700],
+  textDecoration: 'none',
+  '&:hover': {
+    color: grey[500],
+  },
+});
+
+const InputField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: indigo[700],
+  },
+  '& label.Mui-error': {
+    color: red[700],
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.Mui-focused fieldset': {
+      borderColor: indigo[700],
+      borderWidth: '1px',
+    },
+    '&.Mui-error fieldset': {
+      borderColor: red[700],
+      borderWidth: '1px',
+    },
+  },
+});
+
 const AuthPage: FC = () => {
-  const Form = styled('form')({
-    maxWidth: '550px',
-  });
-
-  const PaperCss = styled('div')({
-    maxWidth: '550px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: '50px 36px',
-  });
-
-  const Link = styled(NavLink)({
-    color: grey[700],
-    textDecoration: 'none',
-    '&:hover': {
-      color: grey[500],
-    },
-  });
-
-  const InputField = styled(TextField)({
-    '& label.Mui-focused': {
-      color: indigo[700],
-    },
-    '& label.Mui-error': {
-      color: red[700],
-    },
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: indigo[700],
-        borderWidth: '1px',
-      },
-      '&.Mui-error fieldset': {
-        borderColor: red[700],
-        borderWidth: '1px',
-      },
-    },
-  });
-
   const location = useLocation();
   const isLogin = location.pathname === '/login';
 
