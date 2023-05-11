@@ -73,7 +73,7 @@ const AuthPage: FC = () => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square borderRadius={2}>
         <PaperCss>
           <Typography component="h1" variant="h5">
-            {isLogin ? 'Enter your accounting data' : 'To use the system, register'}
+            {isLogin ? 'Log in' : 'Sign up'}
           </Typography>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <InputField
@@ -123,13 +123,12 @@ const AuthPage: FC = () => {
             >
               {isLogin ? 'Login' : 'Sign up'}
             </Button>
-
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <Link to="/signup">No account? Sign up</Link>
+                  <Link to="/signup">Don&#39;t have an account? Create an account</Link>
                 ) : (
-                  <Link to="/login">Is there an account? Log in</Link>
+                  <Link to="/login">Have already an account? Login</Link>
                 )}
               </Grid>
             </Grid>
