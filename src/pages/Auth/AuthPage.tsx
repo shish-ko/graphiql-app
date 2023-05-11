@@ -46,7 +46,7 @@ const AuthPage: FC = () => {
   });
 
   const location = useLocation();
-  const isLogin = location.pathname === '/auth';
+  const isLogin = location.pathname === '/login';
 
   const {
     register,
@@ -121,15 +121,15 @@ const AuthPage: FC = () => {
               color="primary"
               sx={{ marginTop: '20px', width: '150px' }}
             >
-              {isLogin ? 'Sign up' : 'Registration'}
+              {isLogin ? 'Login' : 'Sign up'}
             </Button>
 
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <Link to="/registration">No account? Registration</Link>
+                  <Link to="/signup">No account? Sign up</Link>
                 ) : (
-                  <Link to="/auth">Is there an account? Sign Up</Link>
+                  <Link to="/login">Is there an account? Log in</Link>
                 )}
               </Grid>
             </Grid>

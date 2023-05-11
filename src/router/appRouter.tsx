@@ -5,8 +5,8 @@ import AuthPage from '~pages/Auth/AuthPage';
 const routerObject = createRoutesFromElements(
   <Route path="/" element={<DefaultUi />}>
     <Route index={true} element={<>Content</>} />
-    <Route path="auth" element={<AuthPage />} />
-    <Route path="registration" element={<AuthPage />} />
+    <Route path="/signup" element={<AuthPage />} />
+    <Route path="/login" element={<AuthPage />} />
   </Route>
 );
 
