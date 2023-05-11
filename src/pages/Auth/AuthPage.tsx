@@ -1,11 +1,50 @@
 import React, { FC } from 'react';
-import { Button, CssBaseline, Grid, Paper, TextField, Typography } from '@mui/material';
-import styles from './AuthPage.module.scss';
+import { Button, CssBaseline, Grid, Paper, styled, TextField, Typography } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFormData } from '~interfaces/*';
+import { grey, indigo, red } from '@mui/material/colors';
 
 const AuthPage: FC = () => {
+  const Form = styled('form')({
+    maxWidth: '550px',
+  });
+
+  const PaperCss = styled('div')({
+    maxWidth: '550px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '50px 36px',
+  });
+
+  const Link = styled(NavLink)({
+    color: grey[700],
+    textDecoration: 'none',
+    '&:hover': {
+      color: grey[500],
+    },
+  });
+
+  const InputField = styled(TextField)({
+    '& label.Mui-focused': {
+      color: indigo[700],
+    },
+    '& label.Mui-error': {
+      color: red[700],
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: indigo[700],
+        borderWidth: '1px',
+      },
+      '&.Mui-error fieldset': {
+        borderColor: red[700],
+        borderWidth: '1px',
+      },
+    },
+  });
+
   const location = useLocation();
   const isLogin = location.pathname === '/auth';
 
@@ -32,12 +71,12 @@ const AuthPage: FC = () => {
     <Grid container direction="column" alignItems="center" justifyContent="center" marginTop={10}>
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square borderRadius={2}>
-        <div className={styles.paper}>
+        <PaperCss>
           <Typography component="h1" variant="h5">
             {isLogin ? 'Enter your accounting data' : 'To use the system, register'}
           </Typography>
-          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <TextField
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <InputField
               variant="outlined"
               margin="normal"
               required
@@ -57,15 +96,13 @@ const AuthPage: FC = () => {
               })}
               InputLabelProps={{ shrink: true }}
             />
-            <TextField
+            <InputField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
               error={!!errors.password}
               helperText={errors.password ? errors.password.message : ''}
               {...register('password', {
@@ -82,7 +119,6 @@ const AuthPage: FC = () => {
               type="submit"
               variant="contained"
               color="primary"
-              className={styles.submit}
               sx={{ marginTop: '20px', width: '150px' }}
             >
               {isLogin ? 'Sign up' : 'Registration'}
@@ -91,14 +127,14 @@ const AuthPage: FC = () => {
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <NavLink to="/registration">No account? Registration</NavLink>
+                  <Link to="/registration">No account? Registration</Link>
                 ) : (
-                  <NavLink to="/auth">Is there an account? Sign Up</NavLink>
+                  <Link to="/auth">Is there an account? Sign Up</Link>
                 )}
               </Grid>
             </Grid>
-          </form>
-        </div>
+          </Form>
+        </PaperCss>
       </Grid>
     </Grid>
   );
