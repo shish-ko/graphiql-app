@@ -6,3 +6,8 @@ export interface IUserSlice {
 
 export type storeState = ReturnType<typeof store.getState>;
 export type storeDispatch = typeof store.dispatch;
+
+export interface IFormData {
+  email: string;
+  password: string;
+}
