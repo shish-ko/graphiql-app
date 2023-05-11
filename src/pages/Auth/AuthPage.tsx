@@ -4,6 +4,13 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFormData } from '~interfaces/*';
 import { grey, indigo, red } from '@mui/material/colors';
+import { authState } from '~configs/firebase';
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithEmailAndPassword,
+} from 'react-firebase-hooks/auth';
+import { useAppDispatch } from '~utils/userHooks';
+import { invokeAlert } from '~store/alertSlice';
 
 const Form = styled('form')({
   maxWidth: '550px',
@@ -47,6 +54,11 @@ const InputField = styled(TextField)({
 const AuthPage: FC = () => {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
+  const [createUserWithEmailAndPassword, regUser, regLoading, regError] =
+    useCreateUserWithEmailAndPassword(authState);
+  const [signUserWithEmailAndPassword, signUser, signLoading, signError] =
+    useSignInWithEmailAndPassword(authState);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -58,11 +70,25 @@ const AuthPage: FC = () => {
     reValidateMode: 'onSubmit',
   });
 
-  const onSubmit: SubmitHandler<IFormData> = (data: IFormData) => {
+  const onSubmit: SubmitHandler<IFormData> = async (data: IFormData) => {
     if (isLogin) {
-      alert('Auth ' + data.email);
+      await signUserWithEmailAndPassword(data.email, data.password);
+      if (signError) {
+        dispatch(invokeAlert({ type: 'error', content: signError.message }));
+        return;
+      }
+      if (signUser) {
+        dispatch(invokeAlert({ type: 'success', content: 'You are successfully logged in' }));
+      }
     } else {
-      alert('Registration ' + data.email);
+      await createUserWithEmailAndPassword(data.email, data.password);
+      if (regError) {
+        dispatch(invokeAlert({ type: 'error', content: regError.message }));
+        return;
+      }
+      if (regUser) {
+        dispatch(invokeAlert({ type: 'success', content: 'Account was successfully created' }));
+      }
     }
     reset();
   };
@@ -116,6 +142,7 @@ const AuthPage: FC = () => {
               InputLabelProps={{ shrink: true }}
             />
             <Button
+              disabled={regLoading || signLoading}
               type="submit"
               variant="contained"
               color="primary"
@@ -126,9 +153,9 @@ const AuthPage: FC = () => {
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <Link to="/signup">Don&#39;t have an account? Create an account</Link>
+                  <Link to="/signup">Don&#39;t have an account? Create it</Link>
                 ) : (
-                  <Link to="/login">Have already an account? Login</Link>
+                  <Link to="/login">Have already an account? Log in</Link>
                 )}
               </Grid>
             </Grid>

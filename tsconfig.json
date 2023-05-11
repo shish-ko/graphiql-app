@@ -21,6 +21,7 @@
       "~store/*": ["./src/store/*"],
       "~utils/*": ["./src/utils/*"],
       "~assets/*": ["./src/assets/*"],
+      "~configs/*": ["./src/configs/*"],
     }
   },
   "include": ["./src/**/*", "styled.d.ts"],
