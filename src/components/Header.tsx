@@ -44,7 +44,15 @@ export const Header: React.FC = () => {
     <ElevationScroll>
       <AppBar position="sticky">
         <HeaderWrapper>
-          <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+          <Container
+            sx={{
+              display: 'flex',
+              justifyContent: { xs: 'center', sm: 'center', md: 'space-between' },
+              alignItems: 'end',
+              gap: '10px',
+              flexWrap: 'wrap',
+            }}
+          >
             <Logo />
             <Typography variant="title">GraphiQL playground</Typography>
             <Auth />

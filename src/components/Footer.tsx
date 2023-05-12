@@ -13,7 +13,14 @@ export const Footer: React.FC = () => {
         backgroundColor: '#333',
       }}
     >
-      <Container sx={{ display: 'flex', justifyContent: 'space-between'}}>
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', sm: 'space-between' },
+          flexWrap: 'wrap',
+          gap: '5px',
+        }}
+      >
         <Stack direction="row" spacing={2} alignItems="center">
           <img src={github} alt="github logo" style={{ maxWidth: '30px' }} />
           <Link href="https://github.com/Hanna-Mamedova" target="_blank" rel="noreferrer">
@@ -30,7 +37,7 @@ export const Footer: React.FC = () => {
           <a href="https://rs.school/" target="_blank" rel="noreferrer">
             <img src={rslogo} alt="rs school logo" style={{ width: '60px' }} />
           </a>
-          <Typography>2023 &copy;</Typography>
+          <Typography color="primary">2023 &copy;</Typography>
         </Stack>
       </Container>
     </Box>

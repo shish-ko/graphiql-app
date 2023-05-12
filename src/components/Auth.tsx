@@ -1,16 +1,17 @@
-import { Box, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { StackDirection } from '~interfaces/*';
 
 export const Auth: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
-    <Box>
+    <Stack direction={StackDirection.row} useFlexGap spacing={{ xs: 1, sm: 4 }}>
       <Button
         variant={pathname !== '/login' ? 'contained' : 'outlined'}
-        sx={{ mr: 1 }}
+        sx={{ minWidth: 'fit-content' }}
         onClick={() => navigate('/signup')}
       >
         Sign up
@@ -18,9 +19,10 @@ export const Auth: React.FC = () => {
       <Button
         variant={pathname !== '/login' ? 'outlined' : 'contained'}
         onClick={() => navigate('/login')}
+        sx={{ minWidth: 'fit-content' }}
       >
         Log in
       </Button>
-    </Box>
+    </Stack>
   );
 };
