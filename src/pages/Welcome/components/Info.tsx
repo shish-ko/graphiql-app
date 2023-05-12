@@ -7,7 +7,7 @@ export const Info: React.FC = () => {
     <Template
       text={welcome.info.text}
       imgUrl={welcome.info.link}
-      direction={StackDirection.reverse}
+      direction={{ xs: StackDirection.column, sm: StackDirection.reverse }}
     />
   );
 };
