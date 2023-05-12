@@ -8,7 +8,7 @@ export enum StackDirection {
 }
 
 export interface IUserSlice {
-  name: string;
+  isLogin: boolean;
 }
 
 export interface IAlertSlice {

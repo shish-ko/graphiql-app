@@ -15,12 +15,9 @@ export const alertSlice = createSlice({
       state.type = payload.type;
       state.content = payload.content;
       state.isShown = true;
-      console.log(state);
     },
     hideAlert: (state) => {
       state.isShown = false;
-      state.content = '';
-      state.type = 'info';
     },
   },
 });
