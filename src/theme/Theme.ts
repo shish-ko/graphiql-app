@@ -1,7 +1,7 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-export const appTheme = createTheme({
+export let appTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -22,11 +22,13 @@ export const appTheme = createTheme({
   typography: {
     title: {
       color: grey[50],
-      fontSize: '1.75rem',
+      fontSize: '2rem',
       fontWeight: 'bolder',
     },
   },
 });
+
+appTheme = responsiveFontSizes(appTheme);
 
 declare module '@mui/material/styles' {
   interface TypographyVariants {

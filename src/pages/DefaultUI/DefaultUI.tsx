@@ -11,7 +11,7 @@ export const DefaultUi: React.FC = () => {
   return (
     <>
       <Header />
-      <Container sx={{ flexGrow: 1, py: 2 }}>
+      <Container sx={{ flexGrow: 1, py: 5 }}>
         <Outlet />
       </Container>
       <Footer />
