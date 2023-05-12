@@ -1,3 +1,4 @@
+import { AlertColor } from '@mui/material';
 import { store } from '../store/reduxStore';
 
 export enum StackDirection {
@@ -7,8 +8,16 @@ export enum StackDirection {
 }
 
 export interface IUserSlice {
-  name: string;
+  isLogin: boolean;
 }
+
+export interface IAlertSlice {
+  content: string;
+  type: AlertColor;
+  isShown: boolean;
+}
+
+export type IAlertPayload = Omit<IAlertSlice, 'isShown'>;
 
 export type storeState = ReturnType<typeof store.getState>;
 export type storeDispatch = typeof store.dispatch;

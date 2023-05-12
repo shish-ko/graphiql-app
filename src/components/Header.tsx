@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { AppBar, Box, Container, styled, Typography } from '@mui/material';
 import { Auth } from './Auth';
 import { Logo } from './Logo';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { authState } from '~configs/firebase';
+import { User } from './User';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -40,6 +43,7 @@ function ElevationScroll(props: ElevationScrollProps) {
 }
 
 export const Header: React.FC = () => {
+  const [user] = useAuthState(authState);
   return (
     <ElevationScroll>
       <AppBar position="sticky">
@@ -55,7 +59,7 @@ export const Header: React.FC = () => {
           >
             <Logo />
             <Typography variant="title">GraphiQL playground</Typography>
-            <Auth />
+            {user ? <User /> : <Auth />}
           </Container>
         </HeaderWrapper>
       </AppBar>

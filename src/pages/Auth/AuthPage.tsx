@@ -1,9 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, CssBaseline, Grid, Paper, styled, TextField, Typography } from '@mui/material';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFormData } from '~interfaces/*';
 import { grey, indigo, red } from '@mui/material/colors';
+import { authState } from '~configs/firebase';
+import { useAlert } from '~utils/userHooks';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 const Form = styled('form')({
   maxWidth: '550px',
@@ -47,6 +51,9 @@ const InputField = styled(TextField)({
 const AuthPage: FC = () => {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
+  const showMsg = useAlert();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -58,11 +65,28 @@ const AuthPage: FC = () => {
     reValidateMode: 'onSubmit',
   });
 
-  const onSubmit: SubmitHandler<IFormData> = (data: IFormData) => {
+  const onSubmit: SubmitHandler<IFormData> = async (data: IFormData) => {
     if (isLogin) {
-      alert('Auth ' + data.email);
+      try {
+        setIsLoading(true);
+        await signInWithEmailAndPassword(authState, data.email, data.password);
+        showMsg({ type: 'success', content: 'You are successfully logged in' });
+        navigate('/main');
+      } catch (e) {
+        if (e instanceof FirebaseError) return showMsg({ type: 'error', content: e.message });
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      alert('Registration ' + data.email);
+      try {
+        setIsLoading(true);
+        await createUserWithEmailAndPassword(authState, data.email, data.password);
+        showMsg({ type: 'success', content: 'Account was successfully created' });
+      } catch (e) {
+        if (e instanceof FirebaseError) return showMsg({ type: 'error', content: e.message });
+      } finally {
+        setIsLoading(false);
+      }
     }
     reset();
   };
@@ -116,6 +140,7 @@ const AuthPage: FC = () => {
               InputLabelProps={{ shrink: true }}
             />
             <Button
+              disabled={isLoading}
               type="submit"
               variant="contained"
               color="primary"
@@ -126,9 +151,9 @@ const AuthPage: FC = () => {
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <Link to="/signup">Don&#39;t have an account? Create an account</Link>
+                  <Link to="/signup">Don&#39;t have an account? Create it</Link>
                 ) : (
-                  <Link to="/login">Have already an account? Login</Link>
+                  <Link to="/login">Have already an account? Log in</Link>
                 )}
               </Grid>
             </Grid>
