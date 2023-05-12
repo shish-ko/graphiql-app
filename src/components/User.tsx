@@ -30,7 +30,6 @@ export const User: React.FC = () => {
       <Button variant="contained" sx={{ ml: 1 }} onClick={signOutHandler} disabled={loading}>
         Log out
       </Button>
-      <Button onClick={() => navigate('/login')}>login page</Button>
     </Box>
   );
 };
