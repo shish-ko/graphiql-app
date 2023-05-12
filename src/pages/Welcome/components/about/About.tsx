@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { generateText } from '~utils/generateParagraphs';
 
 import './About.scss';
@@ -11,27 +11,31 @@ export const About: React.FC = () => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}
-      direction={StackDirection.row}
+      direction={{ xs: StackDirection.column, sm: StackDirection.row }}
       useFlexGap
       alignItems="center"
       justifyContent="center"
     >
       <Stack direction={StackDirection.column} useFlexGap>
         <div className="about-header">
-          <Typography variant="h4" color="secondary">
+          <Typography
+            variant="h4"
+            color="secondary"
+            sx={{ textAlign: { xs: 'center', sm: 'center', md: 'start' } }}
+          >
             GraphQL IDE <br /> <small>for better development workflows!</small>
           </Typography>
         </div>
-        <div className="text">{text}</div>
-        <div>
+        <div>{text}</div>
+        <Box sx={{ textAlign: { xs: 'center', sm: 'center', md: 'start' } }}>
           <Button variant="contained" color="secondary">
             Get Started
           </Button>
-        </div>
+        </Box>
       </Stack>
-      <div>
+      <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
         <img className="image" src={welcome.about.link} alt="image" />
-      </div>
+      </Box>
     </Stack>
   );
 };
