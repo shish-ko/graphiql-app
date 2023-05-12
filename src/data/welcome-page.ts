@@ -20,7 +20,7 @@ export const welcome = {
   },
   rss: {
     text: {
-      paragraph1: 'This application is a part of RS School Angular course.',
+      paragraph1: 'This application is a part of RS School React course.',
       paragraph2:
         'RS School is free-of-charge and community-based education program conducted by The Rolling Scopes developer community since 2013. The mentors and trainers of the school are front-end and javascript developers from different companies and countries.',
       paragraph3:
@@ -28,4 +28,21 @@ export const welcome = {
     },
     link: '/src/assets/welcome/webdev.jpg',
   },
+  team: [
+    {
+      image: '/src/assets/welcome/andrew.jpg',
+      title: 'Andrew',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quidem vel, adipisci ea reprehenderit',
+    },
+    {
+      image: '/src/assets/welcome/webjsmaster.jpg',
+      title: 'Yuri',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit ',
+    },
+    {
+      image: '/src/assets/welcome/hanna.jpeg',
+      title: 'Hanna',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit',
+    },
+  ],
 };
