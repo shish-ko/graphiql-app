@@ -12,7 +12,7 @@ export const Welcome: React.FC = () => {
       direction={StackDirection.column}
       justifyContent="center"
       useFlexGap
-      spacing={{ xs: 1, sm: 10 }}
+      spacing={{ xs: 4, sm: 10 }}
     >
       <About />
       <Info />
