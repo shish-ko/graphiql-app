@@ -18,7 +18,7 @@ export const About: React.FC = () => {
     >
       <Stack direction={StackDirection.column} useFlexGap>
         <div className="about-header">
-          <Typography variant="h4">
+          <Typography variant="h4" color="secondary">
             GraphQL IDE <br /> <small>for better development workflows!</small>
           </Typography>
         </div>
