@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IAlertSlice } from '~interfaces/*';
+import { IAlertPayload, IAlertSlice } from '~interfaces/*';
 
 const initialState: IAlertSlice = {
   type: 'success',
@@ -11,13 +11,16 @@ export const alertSlice = createSlice({
   name: 'alert',
   initialState,
   reducers: {
-    invokeAlert: (state, { payload }: { payload: Omit<IAlertSlice, 'isShown'> }) => {
+    invokeAlert: (state, { payload }: { payload: IAlertPayload }) => {
       state.type = payload.type;
       state.content = payload.content;
       state.isShown = true;
+      console.log(state);
     },
     hideAlert: (state) => {
       state.isShown = false;
+      state.content = '';
+      state.type = 'info';
     },
   },
 });

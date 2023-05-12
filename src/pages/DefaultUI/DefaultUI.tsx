@@ -4,11 +4,8 @@ import { Outlet } from 'react-router-dom';
 import { AppAlert } from '~compos/AppAlert';
 import { Footer } from '~compos/Footer';
 import { Header } from '~compos/Header';
-import { useAppSelector } from '~utils/userHooks';
 
 export const DefaultUi: React.FC = () => {
-  const { name } = useAppSelector((state) => state.user);
-
   return (
     <>
       <Header />

@@ -17,6 +17,8 @@ export interface IAlertSlice {
   isShown: boolean;
 }
 
+export type IAlertPayload = Omit<IAlertSlice, 'isShown'>;
+
 export type storeState = ReturnType<typeof store.getState>;
 export type storeDispatch = typeof store.dispatch;
 
