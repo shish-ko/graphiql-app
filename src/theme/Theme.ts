@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme, responsiveFontSizes } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 export const appTheme = createTheme({
@@ -22,7 +22,7 @@ export const appTheme = createTheme({
   typography: {
     title: {
       color: grey[50],
-      fontSize: '2rem',
+      fontSize: '1.75rem',
       fontWeight: 'bolder',
     },
   },
