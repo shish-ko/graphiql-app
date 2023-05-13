@@ -13,13 +13,17 @@ interface CarouselItemProps {
 
 export const CarouselItem = ({ item }: CarouselItemProps) => {
   return (
-    <Stack direction={StackDirection.row} useFlexGap spacing={{ xs: 1, sm: 4 }}>
+    <Stack
+      direction={{ xs: StackDirection.column, sm: StackDirection.row }}
+      useFlexGap
+      spacing={{ xs: 1, sm: 4 }}
+    >
       <img
         src={item.image}
         alt={`Carousel Image`}
         style={{
           height: '200px',
-          objectFit: 'cover',
+          objectFit: 'contain',
         }}
       />
       <Stack direction={StackDirection.column} useFlexGap spacing={{ xs: 1, sm: 2 }}>
