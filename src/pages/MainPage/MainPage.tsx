@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import { useQuery } from '~utils/userHooks';
 
 const Item = styled(Box)({
   flexBasis: '48%',
@@ -29,15 +30,10 @@ export const MainPage: React.FC = () => {
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
   const [response, setResponse] = useState('');
+  const fetcher = useQuery();
 
-  const sendQuery = async () => {
-    const res = await fetch('https://countries.trevorblades.com/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ query, variables: JSON.parse(variables) }),
-    });
-    const data = await res.json();
-    setResponse(JSON.stringify(data, null, ' '));
+  const sendQuery = () => {
+    fetcher(setResponse, query, variables);
   };
 
   return (
