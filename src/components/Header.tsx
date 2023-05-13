@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { AppBar, Box, Container, styled, Typography } from '@mui/material';
+import { AppBar, Box, Container, styled, Typography, useMediaQuery } from '@mui/material';
 import { Auth } from './Auth';
 import { Logo } from './Logo';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { authState } from '~configs/firebase';
-import { User } from './User';
+import { AuthLoggedIn } from './AuthLoggedIn';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -17,7 +17,7 @@ const HeaderWrapper = styled(Box)({
   top: 0,
 });
 
-function ElevationScroll(props: ElevationScrollProps) {
+const ElevationScroll = (props: ElevationScrollProps) => {
   const { children } = props;
   const [trigger, setTrigger] = useState(false);
 
@@ -40,10 +40,12 @@ function ElevationScroll(props: ElevationScrollProps) {
       transition: 'background-color 0.5s ease-out',
     },
   });
-}
+};
 
 export const Header: React.FC = () => {
   const [user] = useAuthState(authState);
+  const isSmallScreen = useMediaQuery('(max-width: 680px)');
+
   return (
     <ElevationScroll>
       <AppBar position="sticky">
@@ -51,15 +53,15 @@ export const Header: React.FC = () => {
           <Container
             sx={{
               display: 'flex',
-              justifyContent: { xs: 'center', sm: 'center', md: 'space-between' },
+              justifyContent: 'space-between',
               alignItems: 'end',
               gap: '10px',
               flexWrap: 'wrap',
             }}
           >
             <Logo />
-            <Typography variant="title">GraphiQL playground</Typography>
-            {user ? <User /> : <Auth />}
+            {!isSmallScreen && <Typography variant="title">GraphiQL playground</Typography>}
+            {user ? <AuthLoggedIn /> : <Auth />}
           </Container>
         </HeaderWrapper>
       </AppBar>

@@ -1,4 +1,4 @@
-export const GitHubIcon = ({ color }: { color: string }): JSX.Element => {
+export const GitHubIcon = ({ color }: { color: string }) => {
   return (
     <svg
       width="30px"
