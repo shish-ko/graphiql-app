@@ -12,5 +12,5 @@ export const PrivateRoutes: React.FC = () => {
 export const PublicRoutes: React.FC = () => {
   const [user] = useAuthState(authState);
 
-  return user ? <Navigate to={'/'} /> : <Outlet />;
+  return user ? <Navigate to={'/main'} /> : <Outlet />;
 };

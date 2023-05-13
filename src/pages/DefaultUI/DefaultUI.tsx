@@ -13,7 +13,7 @@ export const DefaultUi: React.FC = () => {
   if (loading)
     return (
       <CircularProgress
-        color="success"
+        color="inherit"
         size={80}
         sx={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       />
