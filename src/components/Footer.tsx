@@ -1,9 +1,18 @@
-import { Box, Container, Link, Stack, Typography } from '@mui/material';
+import { Box, Container, Link, Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import github from '../assets/github-logo.svg';
 import rslogo from '../assets/rs-logo.svg';
+import { GitHubIcon } from './GithubIcon';
+
+enum DevelopersGithub {
+  anderew = 'shish-ko',
+  yuri = 'webjsmaster',
+  hanna = 'Hanna Mamedova',
+}
 
 export const Footer: React.FC = () => {
+  const isSmallScreen = useMediaQuery('(max-width: 600px)');
+
   return (
     <Box
       sx={{
@@ -16,21 +25,21 @@ export const Footer: React.FC = () => {
       <Container
         sx={{
           display: 'flex',
-          justifyContent: { xs: 'center', sm: 'space-between' },
+          justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '5px',
         }}
       >
         <Stack direction="row" spacing={2} alignItems="center">
-          <img src={github} alt="github logo" style={{ maxWidth: '30px' }} />
-          <Link href="https://github.com/Hanna-Mamedova" target="_blank" rel="noreferrer">
-            Hanna Mamedova
-          </Link>
+          {!isSmallScreen && <img src={github} alt="github logo" style={{ maxWidth: '30px' }} />}
           <Link href="https://github.com/shish-ko/" target="_blank" rel="noreferrer">
-            shish-ko
+            {isSmallScreen ? <GitHubIcon color="#fafafa" /> : DevelopersGithub.anderew}
           </Link>
           <Link href="https://github.com/webjsmaster" target="_blank" rel="noreferrer">
-            webjsmaster
+            {isSmallScreen ? <GitHubIcon color="rgb(175, 175, 175)" /> : DevelopersGithub.yuri}
+          </Link>
+          <Link href="https://github.com/Hanna-Mamedova" target="_blank" rel="noreferrer">
+            {isSmallScreen ? <GitHubIcon color="#e535ab" /> : DevelopersGithub.hanna}
           </Link>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
