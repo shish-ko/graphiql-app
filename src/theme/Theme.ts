@@ -25,6 +25,12 @@ export let appTheme = createTheme({
       fontSize: '2rem',
       fontWeight: 'bolder',
     },
+    codeTitle: {
+      color: grey[500],
+      fontWeight: 'bolder',
+      textTransform: 'uppercase',
+      cursor: 'pointer',
+    },
   },
 });
 
@@ -33,11 +39,13 @@ appTheme = responsiveFontSizes(appTheme);
 declare module '@mui/material/styles' {
   interface TypographyVariants {
     title: React.CSSProperties;
+    codeTitle: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     title?: React.CSSProperties;
+    codeTitle?: React.CSSProperties;
   }
 }
 
@@ -45,5 +53,6 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     title: true;
+    codeTitle: true;
   }
 }

@@ -4,9 +4,13 @@ import { generateText } from '~utils/generateParagraphs';
 import './About.scss';
 import { welcome } from '../../../../data/welcome-page';
 import { StackDirection } from '~interfaces/*';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { authState } from '~configs/firebase';
+import { Link } from 'react-router-dom';
 
 export const About: React.FC = () => {
   const text = generateText(welcome.about.text);
+  const [user] = useAuthState(authState);
 
   return (
     <Stack
@@ -28,9 +32,13 @@ export const About: React.FC = () => {
         </div>
         <div>{text}</div>
         <Box sx={{ textAlign: { xs: 'center', sm: 'center', md: 'start' } }}>
-          <Button variant="contained" color="secondary">
-            Get Started
-          </Button>
+          {user && (
+            <Button variant="contained" color="secondary">
+              <Link to={'/main'} color="inherit">
+                Get Started
+              </Link>
+            </Button>
+          )}
         </Box>
       </Stack>
       <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
