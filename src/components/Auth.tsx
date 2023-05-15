@@ -1,7 +1,7 @@
 import { Button, Stack, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { StackDirection } from '~interfaces/*';
+import { StackDirection } from '~interfaces/interfaces';
 import { BurgerMenu } from './BurgerMenu';
 
 export const Auth: React.FC = () => {

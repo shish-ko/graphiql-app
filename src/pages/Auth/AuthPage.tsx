@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Button, CssBaseline, Grid, Paper, styled, TextField, Typography } from '@mui/material';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IFormData } from '~interfaces/*';
+import { IFormData } from '~interfaces/interfaces';
 import { grey, indigo, red } from '@mui/material/colors';
 import { authState } from '~configs/firebase';
 import { useAlert } from '~utils/userHooks';

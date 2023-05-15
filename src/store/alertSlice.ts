@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IAlertPayload, IAlertSlice } from '~interfaces/*';
+import { IAlertPayload, IAlertSlice } from '~interfaces/interfaces';
 
 const initialState: IAlertSlice = {
   type: 'success',

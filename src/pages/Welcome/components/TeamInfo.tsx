@@ -1,7 +1,7 @@
 import { ImageCarousel } from '~compos/Carousel';
 import { welcome } from '../../../data/welcome-page';
 import { Stack, Typography } from '@mui/material';
-import { StackDirection } from '~interfaces/*';
+import { StackDirection } from '~interfaces/interfaces';
 
 export const TeamInfo: React.FC = () => {
   return (

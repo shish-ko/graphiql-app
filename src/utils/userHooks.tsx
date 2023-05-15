@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { IAlertPayload, storeDispatch, storeState } from '~interfaces/*';
+import { IAlertPayload, storeDispatch, storeState } from '~interfaces/interfaces';
 import { invokeAlert } from '~store/alertSlice';
 
 export const useAppSelector: TypedUseSelectorHook<storeState> = useSelector;

@@ -1,10 +1,12 @@
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { IDoc, TypesEntity } from '../interfaces/doc_interfaces';
+import { Data, IDoc, Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { DocItem } from './DocItem';
 
 export const Documentation: React.FC = () => {
   const [fieldsArr, setFieldsArr] = useState<TypesEntity>();
+  const [schema, setSchema] = useState<Schema>();
+
   useEffect(() => {
     const getShema = async () => {
       const query =
@@ -17,6 +19,7 @@ export const Documentation: React.FC = () => {
         body: JSON.stringify({ query }),
       });
       const { data }: IDoc = await res.json();
+      setSchema(data.__schema);
       const queryTypes = data.__schema.types!.find((item) => item.name.match(/query/i));
       queryTypes ? setFieldsArr(queryTypes) : console.log('No query types');
     };
@@ -24,7 +27,11 @@ export const Documentation: React.FC = () => {
   }, []);
   return (
     <Box>
-      {fieldsArr && fieldsArr.fields!.map((item, ind) => <DocItem type={item} key={ind} />)}
+      {fieldsArr &&
+        schema &&
+        fieldsArr.fields!.map((item, ind) => (
+          <DocItem stateSetter={setFieldsArr} type={item} key={ind} schema={schema} />
+        ))}
     </Box>
   );
 };

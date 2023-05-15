@@ -8,7 +8,7 @@ export interface Schema {
   queryType: QueryType;
   mutationType?: null;
   subscriptionType?: null;
-  types?: TypesEntity[] | null;
+  types: TypesEntity[];
   directives?: DirectivesEntity[] | null;
 }
 export interface QueryType {
@@ -51,18 +51,9 @@ export interface OfTypeOrType {
 export interface Type {
   kind: string;
   name?: string | null;
-  ofType?: TypeOrOfType1 | null;
+  ofType?: Type | null;
 }
-export interface TypeOrOfType1 {
-  kind: string;
-  name?: string | null;
-  ofType?: TypeOrOfType2 | null;
-}
-export interface TypeOrOfType2 {
-  kind: string;
-  name?: string | null;
-  ofType?: OfTypeOrType | null;
-}
+
 export interface InputFieldsEntity {
   name: string;
   description?: null;
