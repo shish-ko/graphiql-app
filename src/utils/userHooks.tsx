@@ -17,7 +17,7 @@ export const useQuery = () => {
   const hook = async (
     setResponse: (value: React.SetStateAction<string>) => void,
     query: string,
-    variables: string
+    variables?: string
   ) => {
     const res = await fetch('https://countries.trevorblades.com/', {
       method: 'POST',

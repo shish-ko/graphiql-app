@@ -4,6 +4,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { useQuery } from '~utils/userHooks';
+import { Documentation } from '~compos/Documentation';
 
 const Item = styled(Box)({
   flexBasis: '48%',
@@ -38,6 +39,7 @@ export const MainPage: React.FC = () => {
 
   return (
     <>
+      <Documentation />
       <Stack direction="row" justifyContent="space-between" width="100%" position="relative">
         <Item>
           <CodeMirror
