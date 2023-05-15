@@ -30,7 +30,7 @@ export const About: React.FC = () => {
             GraphQL IDE <br /> <small>for better development workflows!</small>
           </Typography>
         </div>
-        <div>{text}</div>
+        <Box sx={{ maxWidth: { xs: 'none', sm: 'none', md: '40rem' } }}>{text}</Box>
         <Box sx={{ textAlign: { xs: 'center', sm: 'center', md: 'start' } }}>
           {user && (
             <Button variant="contained" color="secondary">
