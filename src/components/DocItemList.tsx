@@ -1,4 +1,4 @@
-import { List, ListItem } from '@mui/material';
+import { Divider, List, ListItem } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { DocItem } from './DocItem';
@@ -20,9 +20,12 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
     return (
       <List>
         {type.fields.map((item, ind) => (
-          <ListItem key={ind}>
-            <DocItem field={item} schema={schema} stateSetter={stateSetter} />
-          </ListItem>
+          <>
+            <ListItem key={ind}>
+              <DocItem field={item} schema={schema} stateSetter={stateSetter} />
+            </ListItem>
+            {ind !== type.fields!.length - 1 && <Divider variant="middle" />}
+          </>
         ))}
       </List>
     );
@@ -32,6 +35,7 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
         {type.inputFields.map((item, ind) => (
           <ListItem key={ind}>
             <DocItem field={item} schema={schema} stateSetter={stateSetter} />
+            {ind !== type.inputFields?.length && <Divider />}
           </ListItem>
         ))}
       </List>

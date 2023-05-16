@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { red } from '@mui/material/colors';
+import { orange } from '@mui/material/colors';
 import React, { Dispatch, SetStateAction } from 'react';
 import { FieldsEntity, Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { getOfType, getOfTypeName } from '~utils/docparser';
@@ -33,8 +33,12 @@ export const DocItem: React.FC<IDocItemProps> = ({ field, schema, stateSetter }:
         </Typography>
       )}
       <Typography component={'span'}>:{'\u00A0'}</Typography>
-      <Typography sx={{ color: red[500], cursor: 'pointer' }} component={'span'} onClick={setType}>
-        {ofType}
+      <Typography
+        sx={{ color: orange[500], cursor: 'pointer' }}
+        component={'span'}
+        onClick={setType}
+      >
+        {ofType} {'\u00A0'}
       </Typography>
     </>
   );

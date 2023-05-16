@@ -10,7 +10,7 @@ interface ElevationScrollProps {
   children: React.ReactElement;
 }
 
-const HeaderWrapper = styled(Box)({
+export const HeaderWrapper = styled(Box)({
   padding: 16,
   boxShadow: '0px 8px 6px 0px rgba(34, 60, 80, 0.2)',
   transition: 'background-color 0.5s ease-out',
@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
 
   return (
     <ElevationScroll>
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <HeaderWrapper>
           <Container
             sx={{

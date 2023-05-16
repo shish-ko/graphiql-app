@@ -1,7 +1,7 @@
 import { ResponsiveStyleValue, Stack } from '@mui/system';
 import './Template.scss';
 import { generateText, Text } from '~utils/generateParagraphs';
-import { StackDirection } from '~interfaces/*';
+import { StackDirection } from '~interfaces/interfaces';
 
 interface TemplateProps {
   text: Text;
