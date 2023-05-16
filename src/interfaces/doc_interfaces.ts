@@ -29,25 +29,16 @@ export interface FieldsEntity {
   description?: string | null;
   args?: (ArgsEntity | null)[] | null;
   type: Type;
-  isDeprecated: boolean;
+  // isDeprecated: boolean;
   deprecationReason?: null;
 }
 export interface ArgsEntity {
   name: string;
   description?: null;
-  type: TypeOrOfType;
+  type: Type;
   defaultValue?: string | null;
 }
-export interface TypeOrOfType {
-  kind: string;
-  name?: string | null;
-  ofType?: OfTypeOrType | null;
-}
-export interface OfTypeOrType {
-  kind: string;
-  name: string;
-  ofType?: null;
-}
+
 export interface Type {
   kind: string;
   name?: string | null;
@@ -57,24 +48,10 @@ export interface Type {
 export interface InputFieldsEntity {
   name: string;
   description?: null;
-  type: OfTypeOrType1;
+  type: Type;
   defaultValue?: null;
 }
-export interface OfTypeOrType1 {
-  kind: string;
-  name?: string | null;
-  ofType?: TypeOrOfType3 | null;
-}
-export interface TypeOrOfType3 {
-  kind: string;
-  name?: null;
-  ofType: OfTypeOrType2;
-}
-export interface OfTypeOrType2 {
-  kind: string;
-  name: string;
-  ofType?: null;
-}
+
 export interface EnumValuesEntity {
   name: string;
   description: string;
@@ -90,6 +67,6 @@ export interface DirectivesEntity {
 export interface ArgsEntity1 {
   name: string;
   description: string;
-  type: TypeOrOfType;
+  type: Type;
   defaultValue?: string | null;
 }

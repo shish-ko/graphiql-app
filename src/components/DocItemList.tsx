@@ -1,3 +1,4 @@
+import { List, ListItem } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { DocItem } from './DocItem';
@@ -15,17 +16,27 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
 }: IDocItemListProps) => {
   if (type.description) {
     return <h2>{type.description}</h2>;
-  } else {
+  } else if (type.fields) {
     return (
-      <>
-        {type.fields ? (
-          type.fields.map((item, ind) => (
-            <DocItem field={item} key={ind} schema={schema} stateSetter={stateSetter} />
-          ))
-        ) : (
-          <h2>Error!</h2>
-        )}
-      </>
+      <List>
+        {type.fields.map((item, ind) => (
+          <ListItem key={ind}>
+            <DocItem field={item} schema={schema} stateSetter={stateSetter} />
+          </ListItem>
+        ))}
+      </List>
     );
+  } else if (type.inputFields) {
+    return (
+      <List>
+        {type.inputFields.map((item, ind) => (
+          <ListItem key={ind}>
+            <DocItem field={item} schema={schema} stateSetter={stateSetter} />
+          </ListItem>
+        ))}
+      </List>
+    );
+  } else {
+    return <h2>Error</h2>;
   }
 };

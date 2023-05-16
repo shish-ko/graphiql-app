@@ -1,20 +1,41 @@
+import { Typography } from '@mui/material';
+import { red } from '@mui/material/colors';
 import React, { Dispatch, SetStateAction } from 'react';
-import { FieldsEntity, Schema, Type, TypesEntity } from '~interfaces/doc_interfaces';
+import { FieldsEntity, Schema, TypesEntity } from '~interfaces/doc_interfaces';
+import { getOfType, getOfTypeName } from '~utils/docparser';
 
 interface IDocItemProps {
   field: FieldsEntity;
   schema: Schema;
   stateSetter: Dispatch<SetStateAction<TypesEntity | undefined>>;
 }
+
 export const DocItem: React.FC<IDocItemProps> = ({ field, schema, stateSetter }: IDocItemProps) => {
-  const typeToDisplay = getTypeName(field.type);
+  const typeName = field.name;
+  const ofType = getOfType(field.type);
+
   const setType = () => {
-    const typeToSet = schema.types.find((item) => item.name === typeToDisplay);
+    const typeToSet = schema.types.find((item) => item.name === getOfTypeName(field.type));
     stateSetter(typeToSet);
   };
-  return <h1 onClick={setType}>{typeToDisplay}</h1>;
-};
 
-function getTypeName(type: Type): string {
-  return type.ofType ? getTypeName(type.ofType) : type.name!;
-}
+  return (
+    <>
+      <Typography component={'span'}>{typeName}</Typography>
+      {field.args && (
+        <Typography>
+          (
+          {field.args.map(
+            (item, ind) =>
+              item && <DocItem schema={schema} stateSetter={stateSetter} field={item} key={ind} />
+          )}
+          )
+        </Typography>
+      )}
+      <Typography component={'span'}>:{'\u00A0'}</Typography>
+      <Typography sx={{ color: red[500], cursor: 'pointer' }} component={'span'} onClick={setType}>
+        {ofType}
+      </Typography>
+    </>
+  );
+};
