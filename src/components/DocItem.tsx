@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import React, { Dispatch, SetStateAction } from 'react';
 import { FieldsEntity, Schema, TypesEntity } from '~interfaces/doc_interfaces';
-import { getOfType, getOfTypeName } from '~utils/docparser';
+import { ArgCollector, getOfType, getOfTypeName } from '~utils/docParser';
 
 interface IDocItemProps {
   field: FieldsEntity;
@@ -22,23 +22,15 @@ export const DocItem: React.FC<IDocItemProps> = ({ field, schema, stateSetter }:
   return (
     <>
       <Typography component={'span'}>{typeName}</Typography>
-      {field.args && (
-        <Typography>
-          (
-          {field.args.map(
-            (item, ind) =>
-              item && <DocItem schema={schema} stateSetter={stateSetter} field={item} key={ind} />
-          )}
-          )
-        </Typography>
-      )}
-      <Typography component={'span'}>:{'\u00A0'}</Typography>
+      {ArgCollector(field, schema, stateSetter)?.map((item) => {
+        return item;
+      })}
       <Typography
         sx={{ color: orange[500], cursor: 'pointer' }}
         component={'span'}
         onClick={setType}
       >
-        {ofType} {'\u00A0'}
+        : {ofType}
       </Typography>
     </>
   );

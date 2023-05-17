@@ -1,4 +1,4 @@
-import { Divider, List, ListItem } from '@mui/material';
+import { Divider, List, ListItem, Typography } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { DocItem } from './DocItem';
@@ -14,33 +14,42 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
   stateSetter,
   schema,
 }: IDocItemListProps) => {
+  let render;
+
   if (type.description) {
-    return <h2>{type.description}</h2>;
+    render = (
+      <ListItem>
+        <Typography>{type.description}</Typography>
+      </ListItem>
+    );
   } else if (type.fields) {
-    return (
-      <List>
-        {type.fields.map((item, ind) => (
+    render = (
+      <>
+        {type.fields.map((item, ind, arr) => (
           <>
             <ListItem key={ind}>
               <DocItem field={item} schema={schema} stateSetter={stateSetter} />
             </ListItem>
-            {ind !== type.fields!.length - 1 && <Divider variant="middle" />}
+            {ind !== arr.length - 1 && <Divider variant="middle" key={ind.toString()} />}
           </>
         ))}
-      </List>
+      </>
     );
   } else if (type.inputFields) {
     return (
-      <List>
-        {type.inputFields.map((item, ind) => (
-          <ListItem key={ind}>
-            <DocItem field={item} schema={schema} stateSetter={stateSetter} />
-            {ind !== type.inputFields?.length && <Divider />}
-          </ListItem>
+      <>
+        {type.inputFields.map((item, ind, arr) => (
+          <>
+            <ListItem key={ind}>
+              <DocItem field={item} schema={schema} stateSetter={stateSetter} />
+            </ListItem>
+            {ind !== arr.length - 1 && <Divider variant="middle" key={ind.toString()} />}
+          </>
         ))}
-      </List>
+      </>
     );
   } else {
     return <h2>Error</h2>;
   }
+  return <List>{render}</List>;
 };

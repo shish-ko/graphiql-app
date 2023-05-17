@@ -1,4 +1,5 @@
-import { Button, Drawer, styled } from '@mui/material';
+import { ArrowLeft } from '@mui/icons-material';
+import { Button, Drawer, styled, Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { IDoc, Schema, TypesEntity } from '~interfaces/doc_interfaces';
@@ -34,12 +35,30 @@ const SideBtn = styled(Button)({
   zIndex: 1,
 });
 
+const DocHeader = styled(Toolbar)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: theme.spacing(10),
+  color: '#3B4C68',
+}));
+
 export const Documentation: React.FC = () => {
   const schema = useLoaderData() as Schema;
   const [typeToDisplay, setTypeToDisplay] = useState<TypesEntity>();
-  const [isDocOpen, setIsDocOpen] = useState(false);
+  const [typesHistory, setTypesHistory] = useState<TypesEntity[]>([]);
+  const [isDocOpen, setIsDocOpen] = useState(true);
   const showMsg = useAlert();
-
+  const typeSetter = (typeName: string) => {
+    const schemaType = schema.types!.find((item) => item.name === typeName);
+    if (schemaType) {
+      const newHistory = typesHistory.slice();
+      newHistory.push(schemaType);
+      setTypesHistory(newHistory);
+      setTypeToDisplay(schemaType);
+    } else {
+      showMsg({ type: 'error', content: 'Something went wrong...' });
+    }
+  };
   useEffect(() => {
     const queryTypes = schema.types!.find((item) => item.name.match(/query/i));
     queryTypes
@@ -55,6 +74,13 @@ export const Documentation: React.FC = () => {
         onClose={() => setIsDocOpen(false)}
         BackdropProps={{ invisible: true }}
       >
+        <DocHeader>
+          <Button sx={{ color: '#444' }}>
+            <ArrowLeft />
+            Back
+          </Button>
+          <Typography variant="h5">Api Doc</Typography>
+        </DocHeader>
         {typeToDisplay && schema && (
           <DocItemList type={typeToDisplay} schema={schema} stateSetter={setTypeToDisplay} />
         )}
