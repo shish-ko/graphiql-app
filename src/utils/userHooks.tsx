@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { Schema, TypesEntity } from '~interfaces/doc_interfaces';
 import { IAlertPayload, storeDispatch, storeState } from '~interfaces/interfaces';
 import { invokeAlert } from '~store/alertSlice';
 
@@ -30,4 +32,34 @@ export const useQuery = () => {
     setResponse(JSON.stringify(data, null, ' '));
   };
   return hook;
+};
+
+export const useDocumentation = (schema: Schema) => {
+  const showMsg = useAlert();
+  const [typeToDisplay, setTypeToDisplay] = useState<TypesEntity>();
+  const [typesHistory, setTypesHistory] = useState<TypesEntity[]>([]);
+  const [isBackPossible, setIsBackPossible] = useState(false);
+
+  const typeSetter = (typeName: string) => {
+    const schemaType = schema.types!.find((item) => item.name === typeName);
+    if (schemaType) {
+      const newHistory = typesHistory.slice();
+      newHistory.push(schemaType);
+      setTypesHistory(newHistory);
+      setTypeToDisplay(schemaType);
+      newHistory.length > 1 ? setIsBackPossible(true) : setIsBackPossible(false);
+    } else {
+      showMsg({ type: 'error', content: 'Something went wrong...' });
+    }
+  };
+
+  const getBack = () => {
+    const newHistory = typesHistory.slice();
+    newHistory.pop();
+    setTypesHistory(newHistory);
+    setTypeToDisplay(newHistory.at(-1));
+    newHistory.length > 1 ? setIsBackPossible(true) : setIsBackPossible(false);
+  };
+
+  return { typeToDisplay, typeSetter, getBack, isBackPossible };
 };

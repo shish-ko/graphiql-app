@@ -1,28 +1,26 @@
 import { Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
-import React, { Dispatch, SetStateAction } from 'react';
-import { FieldsEntity, Schema, TypesEntity } from '~interfaces/doc_interfaces';
+import React from 'react';
+import { FieldsEntity } from '~interfaces/doc_interfaces';
 import { ArgCollector, getOfType, getOfTypeName } from '~utils/docParser';
 
 interface IDocItemProps {
   field: FieldsEntity;
-  schema: Schema;
-  stateSetter: Dispatch<SetStateAction<TypesEntity | undefined>>;
+  stateSetter: (typeName: string) => void;
 }
 
-export const DocItem: React.FC<IDocItemProps> = ({ field, schema, stateSetter }: IDocItemProps) => {
+export const DocItem: React.FC<IDocItemProps> = ({ field, stateSetter }: IDocItemProps) => {
   const typeName = field.name;
   const ofType = getOfType(field.type);
 
   const setType = () => {
-    const typeToSet = schema.types.find((item) => item.name === getOfTypeName(field.type));
-    stateSetter(typeToSet);
+    stateSetter(getOfTypeName(field.type));
   };
 
   return (
     <>
       <Typography component={'span'}>{typeName}</Typography>
-      {ArgCollector(field, schema, stateSetter)?.map((item) => {
+      {ArgCollector(field, stateSetter)?.map((item) => {
         return item;
       })}
       <Typography

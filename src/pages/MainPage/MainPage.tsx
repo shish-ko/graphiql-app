@@ -1,10 +1,13 @@
 import { Box, Button, Stack, styled, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { useQuery } from '~utils/userHooks';
 import { Documentation } from '~compos/Documentation';
+import { Await, useLoaderData } from 'react-router-dom';
+import { Schema } from '~interfaces/doc_interfaces';
+import { SideButton } from '~compos/UI_components';
 
 const Item = styled(Box)({
   flexBasis: '48%',
@@ -28,6 +31,7 @@ const SlideBox = styled(Box)(({ theme }) => ({
 }));
 
 export const MainPage: React.FC = () => {
+  const defered = useLoaderData() as { data: Schema };
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
   const [response, setResponse] = useState('');
@@ -39,7 +43,15 @@ export const MainPage: React.FC = () => {
 
   return (
     <>
-      <Documentation />
+      <Suspense
+        fallback={
+          <SideButton color="warning" variant="contained">
+            API documentation is loading ...
+          </SideButton>
+        }
+      >
+        <Await resolve={defered.data}>{(schema) => <Documentation schema={schema} />}</Await>
+      </Suspense>
       <Stack direction="row" justifyContent="space-between" width="100%" position="relative">
         <Item>
           <CodeMirror
