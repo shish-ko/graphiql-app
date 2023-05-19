@@ -1,4 +1,4 @@
-import { Box, Button, Stack, styled, Typography } from '@mui/material';
+import { Box, Button, Stack, styled } from '@mui/material';
 import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
@@ -8,27 +8,17 @@ import { Documentation } from '~compos/Documentation';
 import { Await, useLoaderData } from 'react-router-dom';
 import { SideButton } from '~compos/UI_components';
 import { GraphQLSchema, IntrospectionQuery } from 'graphql';
+import { githubLight } from '@uiw/codemirror-theme-github';
+import { SlideBox } from './SlideBox';
 
 const Item = styled(Box)({
-  flexBasis: '48%',
+  flexBasis: '49%',
   border: '1px solid',
-  maxWidth: '48%',
+  borderRadius: '5px',
+  maxWidth: '49%',
   position: 'relative',
   overflow: 'hidden',
 });
-
-const SlideBox = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  bottom: '0',
-  width: '100%',
-  transform: `translateY(${theme.spacing(12.5)})`,
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.standard,
-  }),
-  '&:hover': {
-    transform: 'translateY(0)',
-  },
-}));
 
 export const MainPage: React.FC = () => {
   const defered = useLoaderData() as { data: IntrospectionQuery };
@@ -40,6 +30,10 @@ export const MainPage: React.FC = () => {
 
   const sendQuery = () => {
     fetcher(setResponse, query, variables);
+  };
+
+  const getVariables = (data: string) => {
+    setVariables(data);
   };
 
   return (
@@ -63,26 +57,11 @@ export const MainPage: React.FC = () => {
             height="500px"
             extensions={[graphql(schema)]}
             value={query}
+            theme={githubLight}
             onChange={(val) => setQuery(val)}
             placeholder={schema ? '# Write your query or mutation here' : 'Wait for schema...'}
           />
-          <SlideBox>
-            <Stack sx={{ backgroundColor: '#282c34', p: 1 }} direction="row" gap={1}>
-              <Typography component="div" variant="codeTitle">
-                variables
-              </Typography>
-              <Typography component="div" variant="codeTitle">
-                headers
-              </Typography>
-            </Stack>
-            <CodeMirror
-              height="100px"
-              extensions={[graphql()]}
-              theme="dark"
-              value={variables}
-              onChange={(val) => setVariables(val)}
-            />
-          </SlideBox>
+          <SlideBox passVariables={getVariables} />
         </Item>
         <Button
           variant="contained"
@@ -94,12 +73,14 @@ export const MainPage: React.FC = () => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: 99,
+            borderRadius: '50%',
+            height: '70px',
           }}
         >
           Run
         </Button>
         <Item>
-          <CodeMirror height="500px" theme="light" value={response} />
+          <CodeMirror theme={githubLight} value={response} />
         </Item>
       </Stack>
     </>

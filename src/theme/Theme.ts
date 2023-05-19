@@ -26,7 +26,7 @@ export let appTheme = createTheme({
       fontWeight: 'bolder',
     },
     codeTitle: {
-      color: grey[500],
+      color: '#333',
       fontWeight: 'bolder',
       textTransform: 'uppercase',
       cursor: 'pointer',
