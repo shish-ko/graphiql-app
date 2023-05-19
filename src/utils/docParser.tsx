@@ -1,13 +1,19 @@
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Typography } from '@mui/material';
+import {
+  getIntrospectionQuery,
+  IntrospectionField,
+  IntrospectionInputValue,
+  IntrospectionQuery,
+} from 'graphql';
 import { DocItem } from '~compos/DocItem';
-import { FieldsEntity, IDoc, Type } from '~interfaces/doc_interfaces';
+import { IOfType } from '~interfaces/interfaces';
 
-export function getOfTypeName(type: Type): string {
+export function getOfTypeName(type: IOfType): string {
   return type.ofType ? getOfTypeName(type.ofType) : type.name!;
 }
 
-export function getOfType(type: Type, namesArr: string[] = []): string {
+export function getOfType(type: IOfType, namesArr: string[] = []): string {
   if (type.ofType) {
     namesArr.push(type.kind!);
     return getOfType(type.ofType, namesArr);
@@ -26,9 +32,12 @@ export function getOfType(type: Type, namesArr: string[] = []): string {
   }
 }
 
-export const ArgCollector = (field: FieldsEntity, stateSetter: (typeName: string) => void) => {
+export const ArgCollector = (
+  field: IntrospectionField | IntrospectionInputValue,
+  stateSetter: (typeName: string) => void
+) => {
   const res: ReactJSXElement[] = [];
-  if (!field.args) return;
+  if (!('args' in field)) return;
   else {
     res.push(<Typography key={'('}>(</Typography>);
     field.args.forEach((item, i, arr) => {
@@ -43,15 +52,13 @@ export const ArgCollector = (field: FieldsEntity, stateSetter: (typeName: string
 };
 
 export const schemaFetcher = async () => {
-  const query =
-    'query IntrospectionQuery { __schema { queryType { name } mutationType { name } subscriptionType { name } types { ...FullType } directives { name description locations args { ...InputValue } } } } fragment FullType on __Type { kind name description fields(includeDeprecated: true) { name description args { ...InputValue } type { ...TypeRef } isDeprecated deprecationReason } inputFields { ...InputValue } interfaces { ...TypeRef } enumValues(includeDeprecated: true) { name description isDeprecated deprecationReason } possibleTypes { ...TypeRef } } fragment InputValue on __InputValue { name description type { ...TypeRef } defaultValue } fragment TypeRef on __Type { kind name ofType { kind name ofType { kind name ofType { kind name ofType { kind name ofType { kind name ofType { kind name ofType { kind name } } } } } } } }';
-  const res = await fetch('https://rickandmortyapi.com/graphql', {
+  const res = await fetch('https://countries.trevorblades.com/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query: getIntrospectionQuery() }),
   });
-  const { data }: IDoc = await res.json();
-  return data.__schema;
+  const { data }: { data: IntrospectionQuery } = await res.json();
+  return data;
 };

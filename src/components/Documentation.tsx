@@ -1,8 +1,8 @@
 import { ArrowLeft } from '@mui/icons-material';
 import { Button, Drawer, styled, Toolbar, Typography } from '@mui/material';
+import { buildClientSchema, GraphQLSchema, IntrospectionQuery } from 'graphql';
 import React, { useEffect, useState } from 'react';
 import { defer } from 'react-router-dom';
-import { Schema } from '~interfaces/doc_interfaces';
 import { schemaFetcher } from '~utils/docParser';
 import { useDocumentation } from '~utils/userHooks';
 import { DocItemList } from './DocItemList';
@@ -28,14 +28,15 @@ const DocHeader = styled(Toolbar)(({ theme }) => ({
 }));
 
 interface IDocProps {
-  schema: Schema;
+  schema: IntrospectionQuery;
+  schemaSetter: React.Dispatch<React.SetStateAction<GraphQLSchema | undefined>>;
 }
 
-export const Documentation: React.FC<IDocProps> = ({ schema }: IDocProps) => {
+export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDocProps) => {
   const [isDocOpen, setIsDocOpen] = useState(false);
   const { typeSetter, typeToDisplay, getBack, isBackPossible } = useDocumentation(schema);
-
   useEffect(() => {
+    schemaSetter(buildClientSchema(schema as unknown as IntrospectionQuery));
     typeSetter('Query');
   }, []);
 

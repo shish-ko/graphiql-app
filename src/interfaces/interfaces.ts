@@ -26,3 +26,9 @@ export interface IFormData {
   email: string;
   password: string;
 }
+
+export interface IOfType {
+  kind: string;
+  name?: string | null;
+  ofType?: IOfType | null;
+}

@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
+import { IntrospectionField, IntrospectionInputValue } from 'graphql';
 import React from 'react';
-import { FieldsEntity } from '~interfaces/doc_interfaces';
 import { ArgCollector, getOfType, getOfTypeName } from '~utils/docParser';
 
 interface IDocItemProps {
-  field: FieldsEntity;
+  field: IntrospectionField | IntrospectionInputValue;
   stateSetter: (typeName: string) => void;
 }
 

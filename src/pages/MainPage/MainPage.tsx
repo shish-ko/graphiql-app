@@ -6,8 +6,8 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { useQuery } from '~utils/userHooks';
 import { Documentation } from '~compos/Documentation';
 import { Await, useLoaderData } from 'react-router-dom';
-import { Schema } from '~interfaces/doc_interfaces';
 import { SideButton } from '~compos/UI_components';
+import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 
 const Item = styled(Box)({
   flexBasis: '48%',
@@ -31,10 +31,11 @@ const SlideBox = styled(Box)(({ theme }) => ({
 }));
 
 export const MainPage: React.FC = () => {
-  const defered = useLoaderData() as { data: Schema };
+  const defered = useLoaderData() as { data: IntrospectionQuery };
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
   const [response, setResponse] = useState('');
+  const [schema, setSchema] = useState<GraphQLSchema>();
   const fetcher = useQuery();
 
   const sendQuery = () => {
@@ -50,16 +51,20 @@ export const MainPage: React.FC = () => {
           </SideButton>
         }
       >
-        <Await resolve={defered.data}>{(schema) => <Documentation schema={schema} />}</Await>
+        <Await resolve={defered.data}>
+          {(schema: IntrospectionQuery) => (
+            <Documentation schema={schema} schemaSetter={setSchema} />
+          )}
+        </Await>
       </Suspense>
       <Stack direction="row" justifyContent="space-between" width="100%" position="relative">
         <Item>
           <CodeMirror
             height="500px"
-            extensions={[graphql()]}
+            extensions={[graphql(schema)]}
             value={query}
             onChange={(val) => setQuery(val)}
-            placeholder="# Write your query or mutation here"
+            placeholder={schema ? '# Write your query or mutation here' : 'Wait for schema...'}
           />
           <SlideBox>
             <Stack sx={{ backgroundColor: '#282c34', p: 1 }} direction="row" gap={1}>

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/reduxStore';
 import { ThemeProvider } from '@mui/material';
 import { appTheme } from './theme/Theme';
+import 'graphql';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

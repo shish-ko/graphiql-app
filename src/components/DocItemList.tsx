@@ -1,10 +1,10 @@
 import { Divider, List, ListItem, Typography } from '@mui/material';
+import { IntrospectionType } from 'graphql';
 import React, { Fragment } from 'react';
-import { TypesEntity } from '~interfaces/doc_interfaces';
 import { DocItem } from './DocItem';
 
 interface IDocItemListProps {
-  type: TypesEntity;
+  type: IntrospectionType;
   stateSetter: (typeName: string) => void;
 }
 
@@ -13,14 +13,13 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
   stateSetter,
 }: IDocItemListProps) => {
   let render;
-
-  if (type.description) {
+  if (type.kind === 'SCALAR' || type.kind === 'ENUM') {
     render = (
       <ListItem>
         <Typography>{type.description}</Typography>
       </ListItem>
     );
-  } else if (type.fields) {
+  } else if (type.kind === 'OBJECT') {
     render = (
       <>
         {type.fields.map((item, ind, arr) => (
@@ -33,8 +32,8 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
         ))}
       </>
     );
-  } else if (type.inputFields) {
-    return (
+  } else if (type.kind === 'INPUT_OBJECT') {
+    render = (
       <>
         {type.inputFields.map((item, ind, arr) => (
           <Fragment key={item.name}>
