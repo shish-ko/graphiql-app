@@ -22,7 +22,7 @@ export const DefaultUi: React.FC = () => {
   return (
     <>
       <Header />
-      <Container sx={{ flexGrow: 1, py: 5, display: 'flex' }}>
+      <Container sx={{ flexGrow: 1, py: 5, display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </Container>
       <Footer />
