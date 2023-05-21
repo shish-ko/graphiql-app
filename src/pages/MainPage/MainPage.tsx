@@ -11,14 +11,17 @@ import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
 
-const Item = styled(Box)({
+const Item = styled(Box)(({ theme }) => ({
   flexBasis: '49%',
   border: '1px solid',
   borderRadius: '5px',
   maxWidth: '49%',
   position: 'relative',
   overflow: 'hidden',
-});
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%',
+  },
+}));
 
 export const MainPage: React.FC = () => {
   const defered = useLoaderData() as { data: IntrospectionQuery };
