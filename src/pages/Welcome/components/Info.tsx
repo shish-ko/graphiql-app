@@ -1,6 +1,6 @@
 import { Template } from './template/Template';
 import { welcome } from '../../../data/welcome-page';
-import { StackDirection } from '../../../interfaces/interfaces';
+import { StackDirection } from '~interfaces/interfaces';
 
 export const Info: React.FC = () => {
   return (

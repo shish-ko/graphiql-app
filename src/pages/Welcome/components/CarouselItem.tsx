@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import { StackDirection } from '~interfaces/*';
+import { StackDirection } from '~interfaces/interfaces';
 
 export interface CarouselItem {
   image: string;

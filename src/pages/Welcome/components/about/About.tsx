@@ -3,7 +3,7 @@ import { generateText } from '~utils/generateParagraphs';
 
 import './About.scss';
 import { welcome } from '../../../../data/welcome-page';
-import { StackDirection } from '~interfaces/*';
+import { StackDirection } from '~interfaces/interfaces';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { authState } from '~configs/firebase';
 import { Link } from 'react-router-dom';
