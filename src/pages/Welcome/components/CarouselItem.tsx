@@ -1,5 +1,4 @@
 import { Stack, Typography } from '@mui/material';
-import { StackDirection } from '~interfaces/interfaces';
 
 export interface CarouselItem {
   image: string;
@@ -13,11 +12,7 @@ interface CarouselItemProps {
 
 export const CarouselItem = ({ item }: CarouselItemProps) => {
   return (
-    <Stack
-      direction={{ xs: StackDirection.column, sm: StackDirection.row }}
-      useFlexGap
-      spacing={{ xs: 1, sm: 4 }}
-    >
+    <Stack direction={{ xs: 'column', sm: 'row' }} useFlexGap spacing={{ xs: 1, sm: 4 }}>
       <img
         src={item.image}
         alt={`Carousel Image`}
@@ -26,7 +21,7 @@ export const CarouselItem = ({ item }: CarouselItemProps) => {
           objectFit: 'contain',
         }}
       />
-      <Stack direction={StackDirection.column} useFlexGap spacing={{ xs: 1, sm: 2 }}>
+      <Stack direction={'column'} useFlexGap spacing={{ xs: 1, sm: 2 }}>
         <Typography variant="h5">{item.title}</Typography>
         <div>{item.text}</div>
       </Stack>

@@ -1,7 +1,6 @@
 import { Button, Stack, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { StackDirection } from '~interfaces/interfaces';
 import { BurgerMenu } from './BurgerMenu';
 
 export const Auth: React.FC = () => {
@@ -21,7 +20,7 @@ export const Auth: React.FC = () => {
   ];
 
   return (
-    <Stack direction={StackDirection.row} useFlexGap spacing={{ xs: 1, sm: 4 }}>
+    <Stack direction={'row'} useFlexGap spacing={{ xs: 1, sm: 4 }}>
       {!isSmallScreen && (
         <Button
           variant={pathname !== '/login' ? 'contained' : 'outlined'}
