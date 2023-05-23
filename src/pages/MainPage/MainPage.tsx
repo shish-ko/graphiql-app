@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Stack, styled } from '@mui/material';
+import { Box, Button, IconButton, Stack, styled, useMediaQuery } from '@mui/material';
 import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
@@ -14,6 +14,7 @@ import { SlideBox } from './SlideBox';
 const Borders = styled(Box)(() => ({
   padding: '10px',
   borderRadius: '12px',
+  backgroundColor: '#FFFF',
   boxShadow:
     '0px 6px 20px rgba(59, 76, 106, .13), 0px 1.34018px 4.46726px rgba(59, 76, 106, .0774939), 0px .399006px 1.33002px rgba(59, 76, 106, .0525061)',
 }));
@@ -25,6 +26,7 @@ export const MainPage: React.FC = () => {
   const [response, setResponse] = useState('');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const fetcher = useQuery();
+  const isSmallScreen = useMediaQuery('(max-width: 600px)');
 
   const sendQuery = () => {
     fetcher(setResponse, query, variables);
@@ -55,20 +57,26 @@ export const MainPage: React.FC = () => {
           backgroundColor: '#f1f2f4',
         }}
       >
-        <Stack direction="row" justifyContent="space-between" width="100%" height="100%">
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+          width="100%"
+          minHeight="100%"
+          gap={1}
+        >
           <Borders
             sx={{
-              resize: 'horizontal',
+              resize: isSmallScreen ? '' : 'horizontal',
               overflow: 'auto',
-              minWidth: '40%',
-              maxWidth: '80%',
-              backgroundColor: '#FFFF',
+              minWidth: isSmallScreen ? '100%' : '40%',
+              maxWidth: isSmallScreen ? '100%' : '80%',
             }}
           >
             <Stack direction="column" height="100%">
               <Stack
                 direction="row"
                 gap={3}
+                minHeight={isSmallScreen ? '100px' : ''}
                 sx={{
                   flex: 1,
                 }}
@@ -90,7 +98,7 @@ export const MainPage: React.FC = () => {
                     sx={{
                       borderRadius: '8px',
                       height: 40,
-                      minWidth: 40,
+                      minWidth: isSmallScreen ? 20 : 40,
                       padding: '0px',
                       backgroundColor: '#40b389',
                     }}
@@ -104,8 +112,9 @@ export const MainPage: React.FC = () => {
               <SlideBox passVariables={getVariables} />
             </Stack>
           </Borders>
-
-          <CodeMirror theme={githubLight} value={response} />
+          <Borders style={{ flex: 1 }}>
+            <CodeMirror theme={githubLight} value={response} />
+          </Borders>
         </Stack>
       </Borders>
     </>
