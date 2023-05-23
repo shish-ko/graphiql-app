@@ -1,34 +1,33 @@
 import { useState } from 'react';
-import { Box, Stack, Typography, styled } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-
-const Slide = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  bottom: '0',
-  width: '100%',
-  transform: `translateY(${theme.spacing(12.5)})`,
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.standard,
-  }),
-  '&:hover': {
-    transform: 'translateY(0)',
-  },
-}));
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export const SlideBox = ({ passVariables }: { passVariables: (data: string) => void }) => {
   const [variables, setVariables] = useState('');
+  const [isCodeVisible, setCodeVisible] = useState(false);
 
   const handleClick = (val: string) => {
     setVariables(val);
     passVariables(variables);
   };
 
+  const toggleCodeVisibility = () => {
+    setCodeVisible(!isCodeVisible);
+  };
+
   return (
     <>
-      <Slide>
-        <Stack sx={{ borderTop: '1px solid #282c34', p: 1 }} direction="row" gap={1}>
+      <Stack
+        justifyContent="space-between"
+        sx={{ borderTop: '1px solid #282c34', p: 1 }}
+        direction="row"
+        gap={1}
+      >
+        <Stack direction="row" gap={1}>
           <Typography component="div" variant="codeTitle">
             VARIABLES
           </Typography>
@@ -36,6 +35,13 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
             HEADERS
           </Typography>
         </Stack>
+        {isCodeVisible ? (
+          <ArrowDropUpIcon onClick={toggleCodeVisibility} sx={{ cursor: 'pointer' }} />
+        ) : (
+          <ArrowDropDownIcon onClick={toggleCodeVisibility} sx={{ cursor: 'pointer' }} />
+        )}
+      </Stack>
+      {isCodeVisible && (
         <CodeMirror
           height="100px"
           extensions={[graphql()]}
@@ -43,7 +49,7 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
           value={variables}
           onChange={(val) => handleClick(val)}
         />
-      </Slide>
+      )}
     </>
   );
 };
