@@ -23,7 +23,7 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
     <>
       <Stack
         justifyContent="space-between"
-        sx={{ borderTop: '1px solid #282c34', p: 1 }}
+        sx={{ borderTop: '1px solid #8993a4', p: 1 }}
         direction="row"
         gap={1}
       >
@@ -36,9 +36,15 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
           </Typography>
         </Stack>
         {isCodeVisible ? (
-          <ArrowDropUpIcon onClick={toggleCodeVisibility} sx={{ cursor: 'pointer' }} />
+          <ArrowDropUpIcon
+            onClick={toggleCodeVisibility}
+            sx={{ cursor: 'pointer', color: '#8993a4' }}
+          />
         ) : (
-          <ArrowDropDownIcon onClick={toggleCodeVisibility} sx={{ cursor: 'pointer' }} />
+          <ArrowDropDownIcon
+            onClick={toggleCodeVisibility}
+            sx={{ cursor: 'pointer', color: '#8993a4' }}
+          />
         )}
       </Stack>
       {isCodeVisible && (
