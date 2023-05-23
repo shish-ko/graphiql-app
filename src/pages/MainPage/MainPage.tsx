@@ -1,4 +1,4 @@
-import { Box, Button, Stack, styled } from '@mui/material';
+import { Box, Button, IconButton, Stack, styled } from '@mui/material';
 import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
@@ -11,16 +11,11 @@ import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
 
-const Item = styled(Box)(({ theme }) => ({
-  flexBasis: '49%',
-  border: '1px solid',
-  borderRadius: '5px',
-  maxWidth: '49%',
-  position: 'relative',
-  overflow: 'hidden',
-  [theme.breakpoints.down('md')]: {
-    maxWidth: '100%',
-  },
+const Borders = styled(Box)(() => ({
+  padding: '10px',
+  borderRadius: '12px',
+  boxShadow:
+    '0px 6px 20px rgba(59, 76, 106, .13), 0px 1.34018px 4.46726px rgba(59, 76, 106, .0774939), 0px .399006px 1.33002px rgba(59, 76, 106, .0525061)',
 }));
 
 export const MainPage: React.FC = () => {
@@ -54,37 +49,48 @@ export const MainPage: React.FC = () => {
           )}
         </Await>
       </Suspense>
-      <Stack direction="row" justifyContent="space-between" width="100%" position="relative">
-        <Item>
-          <CodeMirror
-            height="500px"
-            extensions={[graphql(schema)]}
-            value={query}
-            theme={githubLight}
-            onChange={(val) => setQuery(val)}
-            placeholder={schema ? '# Write your query or mutation here' : 'Wait for schema...'}
-          />
-          <SlideBox passVariables={getVariables} />
-        </Item>
-        <Button
-          variant="contained"
-          onClick={sendQuery}
-          startIcon={<PlayCircleIcon />}
+      <Stack direction="row" justifyContent="space-between" width="100%">
+        <Borders
           sx={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 99,
-            borderRadius: '50%',
-            height: '70px',
+            resize: 'horizontal',
+            overflow: 'auto',
+            minWidth: '40%',
           }}
         >
-          Run
-        </Button>
-        <Item>
-          <CodeMirror theme={githubLight} value={response} />
-        </Item>
+          <Stack direction="column">
+            <Stack direction="row" gap={3}>
+              <CodeMirror
+                height="500px"
+                extensions={[graphql(schema)]}
+                value={query}
+                theme={githubLight}
+                onChange={(val) => setQuery(val)}
+                placeholder={schema ? '# Write your query or mutation here' : 'Wait for schema...'}
+                style={{ flex: 1 }}
+              />
+              <Box>
+                <Button
+                  variant="contained"
+                  onClick={sendQuery}
+                  sx={{
+                    borderRadius: '8px',
+                    height: 40,
+                    minWidth: 40,
+                    padding: '0px',
+                    backgroundColor: '#40b389',
+                  }}
+                >
+                  <IconButton color="primary">
+                    <PlayCircleIcon />
+                  </IconButton>
+                </Button>
+              </Box>
+            </Stack>
+            <SlideBox passVariables={getVariables} />
+          </Stack>
+        </Borders>
+
+        <CodeMirror theme={githubLight} value={response} />
       </Stack>
     </>
   );
