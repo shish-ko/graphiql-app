@@ -57,7 +57,13 @@ export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDo
         </DocHeader>
         {typeToDisplay && <DocItemList type={typeToDisplay} stateSetter={typeSetter} />}
       </DocBar>
-      <SideButton variant="contained" onClick={() => setIsDocOpen(true)}>
+      <SideButton
+        variant="contained"
+        onClick={() => setIsDocOpen(true)}
+        sx={{
+          zIndex: 100,
+        }}
+      >
         Open doc
       </SideButton>
     </>
