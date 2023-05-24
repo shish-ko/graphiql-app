@@ -83,7 +83,7 @@ export const MainPage: React.FC = () => {
                 }}
               >
                 <CodeMirror
-                  extensions={[graphql(schema)]}
+                  extensions={schema && [graphql(schema)]}
                   value={query}
                   theme={githubLight}
                   onChange={(val) => setQuery(val)}
