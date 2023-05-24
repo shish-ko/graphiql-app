@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const ErrorPage: React.FC = () => {
   return (
-    <>
+    <Box sx={{ minWidth: '100%' }}>
       <Typography variant="h5">&#123;</Typography>
       <Typography variant="h5">&nbsp;&quot;errors&quot;: [</Typography>
       <Typography variant="h5">&nbsp;&nbsp; &#123;</Typography>
@@ -23,7 +23,7 @@ export const ErrorPage: React.FC = () => {
           [
           <Link to={'/'}>
             <Button variant="text" color="warning">
-              &quot;go to the main page&quot;
+              &quot;Go to the main page&quot;
             </Button>
           </Link>
           ]
@@ -32,6 +32,6 @@ export const ErrorPage: React.FC = () => {
       <Typography variant="h5">&nbsp;&nbsp; &#125;</Typography>
       <Typography variant="h5">&nbsp;]</Typography>
       <Typography variant="h5">&#125;</Typography>
-    </>
+    </Box>
   );
 };
