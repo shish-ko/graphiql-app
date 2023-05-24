@@ -3,7 +3,6 @@ import { generateText } from '~utils/generateParagraphs';
 
 import './About.scss';
 import { welcome } from '../../../../data/welcome-page';
-import { StackDirection } from '~interfaces/interfaces';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { authState } from '~configs/firebase';
 import { Link } from 'react-router-dom';
@@ -15,12 +14,12 @@ export const About: React.FC = () => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}
-      direction={{ xs: StackDirection.column, sm: StackDirection.row }}
+      direction={{ xs: 'column', sm: 'row' }}
       useFlexGap
       alignItems="center"
       justifyContent="center"
     >
-      <Stack direction={StackDirection.column} useFlexGap>
+      <Stack direction={'column'} useFlexGap>
         <div className="about-header">
           <Typography
             variant="h4"

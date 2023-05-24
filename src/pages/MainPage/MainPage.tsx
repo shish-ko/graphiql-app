@@ -1,33 +1,22 @@
-import { Box, Button, Stack, styled, Typography } from '@mui/material';
+import { Box, Button, Stack, styled, useMediaQuery } from '@mui/material';
 import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useQuery } from '~utils/userHooks';
 import { Documentation } from '~compos/Documentation';
 import { Await, useLoaderData } from 'react-router-dom';
 import { SideButton } from '~compos/UI_components';
 import { GraphQLSchema, IntrospectionQuery } from 'graphql';
+import { githubLight } from '@uiw/codemirror-theme-github';
+import { SlideBox } from './SlideBox';
 
-const Item = styled(Box)({
-  flexBasis: '48%',
-  border: '1px solid',
-  maxWidth: '48%',
-  position: 'relative',
-  overflow: 'hidden',
-});
-
-const SlideBox = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  bottom: '0',
-  width: '100%',
-  transform: `translateY(${theme.spacing(12.5)})`,
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.standard,
-  }),
-  '&:hover': {
-    transform: 'translateY(0)',
-  },
+const Borders = styled(Box)(() => ({
+  padding: '10px',
+  borderRadius: '12px',
+  backgroundColor: '#FFFF',
+  boxShadow:
+    '0px 6px 20px rgba(59, 76, 106, .13), 0px 1.34018px 4.46726px rgba(59, 76, 106, .0774939), 0px .399006px 1.33002px rgba(59, 76, 106, .0525061)',
 }));
 
 export const MainPage: React.FC = () => {
@@ -37,9 +26,14 @@ export const MainPage: React.FC = () => {
   const [response, setResponse] = useState('');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const fetcher = useQuery();
+  const isSmallScreen = useMediaQuery('(max-width: 600px)');
 
   const sendQuery = () => {
     fetcher(setResponse, query, variables);
+  };
+
+  const getVariables = (data: string) => {
+    setVariables(data);
   };
 
   return (
@@ -57,51 +51,70 @@ export const MainPage: React.FC = () => {
           )}
         </Await>
       </Suspense>
-      <Stack direction="row" justifyContent="space-between" width="100%" position="relative">
-        <Item>
-          <CodeMirror
-            height="500px"
-            extensions={[graphql(schema)]}
-            value={query}
-            onChange={(val) => setQuery(val)}
-            placeholder={schema ? '# Write your query or mutation here' : 'Wait for schema...'}
-          />
-          <SlideBox>
-            <Stack sx={{ backgroundColor: '#282c34', p: 1 }} direction="row" gap={1}>
-              <Typography component="div" variant="codeTitle">
-                variables
-              </Typography>
-              <Typography component="div" variant="codeTitle">
-                headers
-              </Typography>
-            </Stack>
-            <CodeMirror
-              height="100px"
-              extensions={[graphql()]}
-              theme="dark"
-              value={variables}
-              onChange={(val) => setVariables(val)}
-            />
-          </SlideBox>
-        </Item>
-        <Button
-          variant="contained"
-          onClick={sendQuery}
-          startIcon={<PlayCircleIcon />}
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 99,
-          }}
+      <Borders
+        sx={{
+          flex: 1,
+          backgroundColor: '#f1f2f4',
+        }}
+      >
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+          width="100%"
+          minHeight="100%"
+          gap={1}
         >
-          Run
-        </Button>
-        <Item>
-          <CodeMirror height="500px" theme="light" value={response} />
-        </Item>
-      </Stack>
+          <Borders
+            sx={{
+              resize: isSmallScreen ? '' : 'horizontal',
+              overflow: 'auto',
+              minWidth: isSmallScreen ? '100%' : '40%',
+              maxWidth: isSmallScreen ? '100%' : '80%',
+            }}
+          >
+            <Stack direction="column" height="100%">
+              <Stack
+                direction="row"
+                gap={3}
+                minHeight={isSmallScreen ? '100px' : ''}
+                sx={{
+                  flex: 1,
+                }}
+              >
+                <CodeMirror
+                  extensions={[graphql(schema)]}
+                  value={query}
+                  theme={githubLight}
+                  onChange={(val) => setQuery(val)}
+                  placeholder={
+                    schema ? '# Write your query or mutation here' : 'Wait for schema...'
+                  }
+                  style={{ flex: 1 }}
+                />
+                <Box>
+                  <Button
+                    variant="contained"
+                    onClick={sendQuery}
+                    sx={{
+                      borderRadius: '8px',
+                      height: 40,
+                      minWidth: isSmallScreen ? 20 : 40,
+                      padding: '0px',
+                      backgroundColor: '#40b389',
+                    }}
+                  >
+                    <PlayArrowIcon htmlColor="#fff" />
+                  </Button>
+                </Box>
+              </Stack>
+              <SlideBox passVariables={getVariables} />
+            </Stack>
+          </Borders>
+          <Borders style={{ flex: 1 }}>
+            <CodeMirror theme={githubLight} value={response} />
+          </Borders>
+        </Stack>
+      </Borders>
     </>
   );
 };
