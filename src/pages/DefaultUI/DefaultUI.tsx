@@ -1,4 +1,4 @@
-import { CircularProgress, Container } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Outlet } from 'react-router-dom';
@@ -12,11 +12,9 @@ export const DefaultUi: React.FC = () => {
 
   if (loading)
     return (
-      <CircularProgress
-        color="inherit"
-        size={80}
-        sx={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-      />
+      <Box sx={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <CircularProgress color="inherit" size={80} />
+      </Box>
     );
 
   return (

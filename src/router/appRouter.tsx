@@ -5,6 +5,7 @@ import { Welcome } from '~pages/Welcome/Welcome';
 import { PrivateRoutes, PublicRoutes } from './ProtectedRoutes';
 import { MainPage } from '~pages/MainPage/MainPage';
 import { loader as docLoader } from '~compos/Documentation';
+import { ErrorPage } from '~pages/Error/ErrorPage';
 
 const routerObject = createRoutesFromElements(
   <Route path="/" element={<DefaultUi />}>
@@ -16,6 +17,7 @@ const routerObject = createRoutesFromElements(
       <Route path="/signup" element={<AuthPage />} />
       <Route path="/login" element={<AuthPage />} />
     </Route>
+    <Route path="*" element={<ErrorPage />} />
   </Route>
 );
 
