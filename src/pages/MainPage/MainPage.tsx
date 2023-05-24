@@ -1,8 +1,8 @@
-import { Box, Button, IconButton, Stack, styled, useMediaQuery } from '@mui/material';
+import { Box, Button, Stack, styled, useMediaQuery } from '@mui/material';
 import React, { Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useQuery } from '~utils/userHooks';
 import { Documentation } from '~compos/Documentation';
 import { Await, useLoaderData } from 'react-router-dom';
@@ -103,9 +103,7 @@ export const MainPage: React.FC = () => {
                       backgroundColor: '#40b389',
                     }}
                   >
-                    <IconButton color="primary">
-                      <PlayCircleIcon />
-                    </IconButton>
+                    <PlayArrowIcon htmlColor="#fff" />
                   </Button>
                 </Box>
               </Stack>

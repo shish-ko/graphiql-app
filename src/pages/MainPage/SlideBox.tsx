@@ -36,12 +36,12 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
           </Typography>
         </Stack>
         {isCodeVisible ? (
-          <ArrowDropUpIcon
+          <ArrowDropDownIcon
             onClick={toggleCodeVisibility}
             sx={{ cursor: 'pointer', color: '#8993a4' }}
           />
         ) : (
-          <ArrowDropDownIcon
+          <ArrowDropUpIcon
             onClick={toggleCodeVisibility}
             sx={{ cursor: 'pointer', color: '#8993a4' }}
           />
