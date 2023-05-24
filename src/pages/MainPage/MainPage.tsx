@@ -107,7 +107,7 @@ export const MainPage: React.FC = () => {
                   </Button>
                 </Box>
               </Stack>
-              <SlideBox passVariables={getVariables} />
+              <SlideBox setValue={setVariables} />
             </Stack>
           </Borders>
           <Borders style={{ flex: 1 }}>
