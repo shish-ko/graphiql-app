@@ -1,4 +1,4 @@
-import { ArrowLeft } from '@mui/icons-material';
+import { ArrowLeft, Close } from '@mui/icons-material';
 import { Button, Drawer, styled, Toolbar, Typography } from '@mui/material';
 import { buildClientSchema, GraphQLSchema, IntrospectionQuery } from 'graphql';
 import React, { useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ const DocBar = styled(Drawer)({
 const DocHeader = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  gap: theme.spacing(10),
+  gap: theme.spacing(2),
   color: '#3B4C68',
 }));
 
@@ -54,6 +54,13 @@ export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDo
             Back
           </Button>
           <Typography variant="h5">Api Doc</Typography>
+          <Button
+            sx={{ color: '#444', display: { sm: 'none' } }}
+            onClick={() => setIsDocOpen(false)}
+          >
+            close
+            <Close />
+          </Button>
         </DocHeader>
         {typeToDisplay && <DocItemList type={typeToDisplay} stateSetter={typeSetter} />}
       </DocBar>
