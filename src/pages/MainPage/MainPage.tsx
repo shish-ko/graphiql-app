@@ -32,10 +32,6 @@ export const MainPage: React.FC = () => {
     fetcher(setResponse, query, variables);
   };
 
-  const getVariables = (data: string) => {
-    setVariables(data);
-  };
-
   return (
     <>
       <Suspense

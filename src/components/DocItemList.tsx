@@ -24,7 +24,7 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
       <>
         {type.fields.map((item, ind, arr) => (
           <Fragment key={item.name}>
-            <ListItem>
+            <ListItem sx={{ flexWrap: 'wrap' }}>
               <DocItem field={item} stateSetter={stateSetter} />
             </ListItem>
             {ind !== arr.length - 1 && <Divider variant="middle" key={ind} />}
@@ -37,7 +37,7 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
       <>
         {type.inputFields.map((item, ind, arr) => (
           <Fragment key={item.name}>
-            <ListItem>
+            <ListItem sx={{ flexWrap: 'wrap' }}>
               <DocItem field={item} stateSetter={stateSetter} />
             </ListItem>
             {ind !== arr.length - 1 && <Divider variant="middle" key={ind} />}
