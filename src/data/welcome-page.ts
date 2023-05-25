@@ -7,7 +7,7 @@ export const welcome = {
         'It is absolutely free. All you need to do is to create your own account. You are only few steps away from getting access to your own kanban boards.',
       paragraph3: 'Click on the button below to begin.',
     },
-    link: '/src/assets/welcome/about-img.webp',
+    link: '/welcome/about-img.webp',
   },
   info: {
     text: {
@@ -16,7 +16,7 @@ export const welcome = {
       paragraph2:
         'There are so many tools that make learning and using GraphQL easier. One of these tools is GraphQL Playground, a GraphQL integrated developer environment (IDE) that helps improve development workflows.',
     },
-    link: '/src/assets/welcome/info-img.jpg',
+    link: '/welcome/info-img.jpg',
   },
   rss: {
     text: {
@@ -26,21 +26,21 @@ export const welcome = {
       paragraph3:
         'Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins. Want to learn more about RS School? You can visit their site <a href="https://rs.school">RS School</a>.',
     },
-    link: '/src/assets/welcome/webdev.jpg',
+    link: '/welcome/webdev.jpg',
   },
   team: [
     {
-      image: '/src/assets/welcome/andrew.jpg',
+      image: '/welcome/andrew.jpg',
       title: 'Andrew',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quidem vel, adipisci ea reprehenderit',
     },
     {
-      image: '/src/assets/welcome/webjsmaster.jpg',
+      image: '/welcome/webjsmaster.jpg',
       title: 'Yuri',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit ',
     },
     {
-      image: '/src/assets/welcome/hanna.jpeg',
+      image: '/welcome/hanna.jpeg',
       title: 'Hanna',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit',
     },

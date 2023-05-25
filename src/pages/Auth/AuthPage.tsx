@@ -92,7 +92,7 @@ const AuthPage: FC = () => {
   };
 
   return (
-    <Grid container direction="column" alignItems="center" justifyContent="center" marginTop={10}>
+    <Grid container direction="column" alignItems="center" justifyContent="center">
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square borderRadius={2}>
         <PaperCss>
