@@ -1,8 +1,6 @@
-import { Box, Button, Typography, useMediaQuery } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { Avatar, Button, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
 import { authState } from '~configs/firebase';
 import { useAlert } from '~utils/userHooks';
 import { BurgerMenu } from './BurgerMenu';
@@ -13,7 +11,6 @@ export const AuthLoggedIn: React.FC = () => {
   const [user] = useAuthState(authState);
   const [signOut, loading, error] = useSignOut(authState);
   const showMsg = useAlert();
-  const navigate = useNavigate();
 
   const signOutHandler = async () => {
     const result = await signOut();
@@ -34,9 +31,7 @@ export const AuthLoggedIn: React.FC = () => {
 
   return (
     <Stack direction="row" alignItems="center" gap={2}>
-      <Typography component={'span'} sx={{ color: grey[50] }}>
-        {user?.email}
-      </Typography>
+      <Avatar sx={{ textTransform: 'capitalize' }}>{user?.email?.slice(0, 2)}</Avatar>
       {!isSmallScreen && (
         <Button variant="contained" sx={{ ml: 1 }} onClick={signOutHandler} disabled={loading}>
           Log out
