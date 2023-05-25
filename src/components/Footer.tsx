@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
           gap: '5px',
         }}
       >
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={1} alignItems="center">
           {!isSmallScreen && <img src={github} alt="github logo" style={{ maxWidth: '30px' }} />}
           <Link href="https://github.com/shish-ko/" target="_blank" rel="noreferrer">
             {isSmallScreen ? <GitHubIcon color="#fafafa" /> : DevelopersGithub.anderew}
