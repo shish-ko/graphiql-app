@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
             }}
           >
             <Logo />
-            {!isSmallScreen && <Typography variant="title">GraphiQL playground</Typography>}
+            {!isSmallScreen && <Typography variant="title">Graphql playground</Typography>}
             {user ? <AuthLoggedIn /> : <Auth />}
           </Container>
         </HeaderWrapper>
