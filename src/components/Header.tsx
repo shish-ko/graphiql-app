@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
               justifyContent: 'space-between',
               alignItems: 'end',
               gap: '10px',
-              flexWrap: 'wrap',
+              flexWrap: 'nowrap',
             }}
           >
             <Logo />
