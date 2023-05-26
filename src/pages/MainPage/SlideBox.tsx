@@ -8,9 +8,10 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 interface ISlideBoxProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  value: string;
 }
 
-export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue }: ISlideBoxProps) => {
+export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue, value }: ISlideBoxProps) => {
   const [isCodeVisible, setCodeVisible] = useState(false);
 
   const toggleCodeVisibility = () => {
@@ -48,6 +49,7 @@ export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue }: ISlideBoxProps)
       {isCodeVisible && (
         <CodeMirror
           height="100px"
+          value={value}
           extensions={[graphql()]}
           theme={githubLight}
           onChange={(val) => setValue(val)}

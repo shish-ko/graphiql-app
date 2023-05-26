@@ -10,6 +10,7 @@ import { SideButton } from '~compos/UI_components';
 import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
+import TabsMainPage from "~compos/TabsMainPage";
 
 const Borders = styled(Box)(() => ({
   padding: '10px',
@@ -54,6 +55,14 @@ export const MainPage: React.FC = () => {
           maxWidth: '100%',
         }}
       >
+        <TabsMainPage
+          query={query}
+          setQuery={setQuery}
+          response={response}
+          setResponse={setResponse}
+          variables={variables}
+          setVariables={setVariables}
+        />
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
@@ -104,7 +113,7 @@ export const MainPage: React.FC = () => {
                   </Button>
                 </Box>
               </Stack>
-              <SlideBox setValue={setVariables} />
+              <SlideBox setValue={setVariables} value={variables} />
             </Stack>
           </Borders>
           <Borders style={{ flex: 1, overflow: 'auto' }}>
