@@ -56,11 +56,11 @@ export const Header: React.FC = () => {
               justifyContent: 'space-between',
               alignItems: 'end',
               gap: '10px',
-              flexWrap: 'wrap',
+              flexWrap: 'nowrap',
             }}
           >
             <Logo />
-            {!isSmallScreen && <Typography variant="title">GraphiQL playground</Typography>}
+            {!isSmallScreen && <Typography variant="title">Graphql playground</Typography>}
             {user ? <AuthLoggedIn /> : <Auth />}
           </Container>
         </HeaderWrapper>

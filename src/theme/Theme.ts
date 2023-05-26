@@ -24,6 +24,7 @@ export let appTheme = createTheme({
       color: grey[50],
       fontSize: '2rem',
       fontWeight: 'bolder',
+      fontFamily: 'RealityHyper',
     },
     codeTitle: {
       color: '#8993a4',

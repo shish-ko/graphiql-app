@@ -10,7 +10,6 @@ import { SideButton } from '~compos/UI_components';
 import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
-import TabsMainPage from '~compos/TabsMainPage';
 
 const Borders = styled(Box)(() => ({
   padding: '10px',
@@ -33,12 +32,6 @@ export const MainPage: React.FC = () => {
     fetcher(setResponse, query, variables);
   };
 
-  const getVariables = (data: string) => {
-      console.log( '⭐: ', data )
-
-    setVariables(data);
-  };
-
   return (
     <>
       <Suspense
@@ -58,16 +51,9 @@ export const MainPage: React.FC = () => {
         sx={{
           flex: 1,
           backgroundColor: '#f1f2f4',
+          maxWidth: '100%',
         }}
       >
-        <TabsMainPage
-          query={query}
-          setQuery={setQuery}
-          response={response}
-          setResponse={setResponse}
-          variables={variables}
-          setVariables={setVariables}
-        />
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
@@ -93,14 +79,14 @@ export const MainPage: React.FC = () => {
                 }}
               >
                 <CodeMirror
-                  extensions={[graphql(schema)]}
+                  extensions={schema && [graphql(schema)]}
                   value={query}
                   theme={githubLight}
                   onChange={(val) => setQuery(val)}
                   placeholder={
                     schema ? '# Write your query or mutation here' : 'Wait for schema...'
                   }
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, overflow: 'auto' }}
                 />
                 <Box>
                   <Button
@@ -109,7 +95,7 @@ export const MainPage: React.FC = () => {
                     sx={{
                       borderRadius: '8px',
                       height: 40,
-                      minWidth: isSmallScreen ? 20 : 40,
+                      minWidth: 40,
                       padding: '0px',
                       backgroundColor: '#40b389',
                     }}
@@ -118,10 +104,10 @@ export const MainPage: React.FC = () => {
                   </Button>
                 </Box>
               </Stack>
-              <SlideBox passVariables={getVariables} />
+              <SlideBox setValue={setVariables} />
             </Stack>
           </Borders>
-          <Borders style={{ flex: 1 }}>
+          <Borders style={{ flex: 1, overflow: 'auto' }}>
             <CodeMirror theme={githubLight} value={response} />
           </Borders>
         </Stack>
