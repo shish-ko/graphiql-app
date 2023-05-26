@@ -21,6 +21,7 @@ export const useQuery = () => {
     query: string,
     variablesString?: string
   ) => {
+    setResponse('Waiting for response...');
     let variables;
     try {
       if (variablesString) variables = JSON.parse(variablesString);
