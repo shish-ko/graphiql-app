@@ -31,7 +31,9 @@ export const AuthLoggedIn: React.FC = () => {
 
   return (
     <Stack direction="row" alignItems="center" gap={2}>
-      <Avatar sx={{ textTransform: 'capitalize' }}>{user?.email?.slice(0, 2)}</Avatar>
+      <Avatar sx={{ textTransform: 'capitalize', background: '#7c4b4b' }}>
+        {user?.email?.slice(0, 2)}
+      </Avatar>
       {!isSmallScreen && (
         <Button variant="contained" sx={{ ml: 1 }} onClick={signOutHandler} disabled={loading}>
           Log out

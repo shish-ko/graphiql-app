@@ -30,7 +30,6 @@ export const BurgerMenu = ({ items }: BurgerMenuProps) => {
         edge="start"
         color="inherit"
         aria-label="menu"
-        sx={{ mr: 2 }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"

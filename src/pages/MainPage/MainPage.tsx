@@ -51,6 +51,7 @@ export const MainPage: React.FC = () => {
         sx={{
           flex: 1,
           backgroundColor: '#f1f2f4',
+          maxWidth: '100%',
         }}
       >
         <Stack
@@ -85,7 +86,7 @@ export const MainPage: React.FC = () => {
                   placeholder={
                     schema ? '# Write your query or mutation here' : 'Wait for schema...'
                   }
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, overflow: 'auto' }}
                 />
                 <Box>
                   <Button
@@ -94,7 +95,7 @@ export const MainPage: React.FC = () => {
                     sx={{
                       borderRadius: '8px',
                       height: 40,
-                      minWidth: isSmallScreen ? 20 : 40,
+                      minWidth: 40,
                       padding: '0px',
                       backgroundColor: '#40b389',
                     }}
@@ -106,7 +107,7 @@ export const MainPage: React.FC = () => {
               <SlideBox setValue={setVariables} />
             </Stack>
           </Borders>
-          <Borders style={{ flex: 1 }}>
+          <Borders style={{ flex: 1, overflow: 'auto' }}>
             <CodeMirror theme={githubLight} value={response} />
           </Borders>
         </Stack>
