@@ -8,6 +8,7 @@ import { authState } from '~configs/firebase';
 import { useAlert } from '~utils/userHooks';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import { fBaseErrReader } from '~utils/utils';
 
 const Form = styled('form')({
   maxWidth: '550px',
@@ -73,7 +74,8 @@ const AuthPage: FC = () => {
         showMsg({ type: 'success', content: 'You are successfully logged in' });
         navigate('/main');
       } catch (e) {
-        if (e instanceof FirebaseError) return showMsg({ type: 'error', content: e.message });
+        if (e instanceof FirebaseError)
+          return showMsg({ type: 'error', content: fBaseErrReader(e.message) });
       } finally {
         setIsLoading(false);
       }
@@ -83,7 +85,8 @@ const AuthPage: FC = () => {
         await createUserWithEmailAndPassword(authState, data.email, data.password);
         showMsg({ type: 'success', content: 'Account was successfully created' });
       } catch (e) {
-        if (e instanceof FirebaseError) return showMsg({ type: 'error', content: e.message });
+        if (e instanceof FirebaseError)
+          return showMsg({ type: 'error', content: fBaseErrReader(e.message) });
       } finally {
         setIsLoading(false);
       }

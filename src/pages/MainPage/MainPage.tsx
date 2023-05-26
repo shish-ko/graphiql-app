@@ -32,10 +32,6 @@ export const MainPage: React.FC = () => {
     fetcher(setResponse, query, variables);
   };
 
-  const getVariables = (data: string) => {
-    setVariables(data);
-  };
-
   return (
     <>
       <Suspense
@@ -83,7 +79,7 @@ export const MainPage: React.FC = () => {
                 }}
               >
                 <CodeMirror
-                  extensions={[graphql(schema)]}
+                  extensions={schema && [graphql(schema)]}
                   value={query}
                   theme={githubLight}
                   onChange={(val) => setQuery(val)}
@@ -108,7 +104,7 @@ export const MainPage: React.FC = () => {
                   </Button>
                 </Box>
               </Stack>
-              <SlideBox passVariables={getVariables} />
+              <SlideBox setValue={setVariables} />
             </Stack>
           </Borders>
           <Borders style={{ flex: 1, overflow: 'auto' }}>

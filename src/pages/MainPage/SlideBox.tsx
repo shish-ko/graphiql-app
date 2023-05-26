@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
@@ -6,14 +6,12 @@ import { graphql } from 'cm6-graphql';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
-export const SlideBox = ({ passVariables }: { passVariables: (data: string) => void }) => {
-  const [variables, setVariables] = useState('');
-  const [isCodeVisible, setCodeVisible] = useState(false);
+interface ISlideBoxProps {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const handleClick = (val: string) => {
-    setVariables(val);
-    passVariables(variables);
-  };
+export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue }: ISlideBoxProps) => {
+  const [isCodeVisible, setCodeVisible] = useState(false);
 
   const toggleCodeVisibility = () => {
     setCodeVisible(!isCodeVisible);
@@ -52,8 +50,7 @@ export const SlideBox = ({ passVariables }: { passVariables: (data: string) => v
           height="100px"
           extensions={[graphql()]}
           theme={githubLight}
-          value={variables}
-          onChange={(val) => handleClick(val)}
+          onChange={(val) => setValue(val)}
         />
       )}
     </>

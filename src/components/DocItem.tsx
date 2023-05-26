@@ -19,15 +19,11 @@ export const DocItem: React.FC<IDocItemProps> = ({ field, stateSetter }: IDocIte
 
   return (
     <>
-      <Typography component={'span'}>{typeName}</Typography>
+      <Typography>{typeName}</Typography>
       {ArgCollector(field, stateSetter)?.map((item) => {
         return item;
       })}
-      <Typography
-        sx={{ color: orange[500], cursor: 'pointer' }}
-        component={'span'}
-        onClick={setType}
-      >
+      <Typography sx={{ color: orange[500], cursor: 'pointer' }} onClick={setType}>
         : {ofType}
       </Typography>
     </>
