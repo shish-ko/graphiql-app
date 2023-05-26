@@ -2,17 +2,11 @@ import { ArrowLeft, Close } from '@mui/icons-material';
 import { Button, Drawer, styled, Toolbar, Typography } from '@mui/material';
 import { buildClientSchema, GraphQLSchema, IntrospectionQuery } from 'graphql';
 import React, { useEffect, useState } from 'react';
-import { defer } from 'react-router-dom';
-import { schemaFetcher } from '~utils/docParser';
 import { useDocumentation } from '~utils/userHooks';
 import { DocItemList } from './DocItemList';
 import { SideButton } from './UI_components';
 import useTranslation from '~utils/localization';
-
-export const loader = () => {
-  const data = schemaFetcher();
-  return defer({ data });
-};
+import { useLoaderData } from 'react-router-dom';
 
 const DocBar = styled(Drawer)({
   '& 	.MuiDrawer-paperAnchorRight': {
@@ -29,13 +23,13 @@ const DocHeader = styled(Toolbar)(({ theme }) => ({
 }));
 
 interface IDocProps {
-  schema: IntrospectionQuery;
   schemaSetter: React.Dispatch<React.SetStateAction<GraphQLSchema | undefined>>;
 }
 
 export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDocProps) => {
   const localization = useTranslation();
   const [isDocOpen, setIsDocOpen] = useState(false);
+  const schema = useLoaderData() as IntrospectionQuery;
   const { typeSetter, typeToDisplay, getBack, isBackPossible } = useDocumentation(schema);
   useEffect(() => {
     schemaSetter(buildClientSchema(schema as unknown as IntrospectionQuery));
@@ -78,3 +72,5 @@ export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDo
     </>
   );
 };
+
+export default Documentation;
