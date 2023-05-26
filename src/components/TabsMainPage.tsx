@@ -39,6 +39,7 @@ interface ITab {
   id: string;
   query: string;
   response: string;
+  variables: string;
   title: string;
   active: boolean;
 }
@@ -48,9 +49,11 @@ interface ITabsMainPage {
   setQuery: (arg: string) => void;
   response: string;
   setResponse: (arg: string) => void;
+  variables: string;
+  setVariables: (arg: string) => void;
 }
 
-const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setResponse }) => {
+const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setResponse, variables, setVariables }) => {
   const showMsg = useAlert();
   const [tabs, setTabs] = useState<ITab[]>([
     {
@@ -58,13 +61,14 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
       title: 'New tab',
       query: query,
       response: response,
+      variables: variables,
       active: true,
     },
   ]);
 
   const addTab = () => {
     if (tabs) {
-      const tab: ITab = { id: uuidv4(), title: 'New tab', query: '', response: '', active: false };
+      const tab: ITab = {id: uuidv4(), title: 'New tab', query: '', response: '', variables: '', active: false };
       setTabs((prevState) => {
         return prevState.concat(tab);
       });
@@ -75,19 +79,23 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
       });
       setQuery('');
       setResponse('');
+      setVariables('');
     }
   };
 
   useEffect(() => {
     setTabs((prevState) => {
-      return prevState.map((t) => (t.active ? { ...t, query, response } : { ...t }));
+      return prevState.map((t) => (t.active ? { ...t, query, response, variables } : { ...t }));
     });
-  }, [query, response]);
+  }, [query, response, variables]);
 
   const setActiveButton = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: ITab) => {
     e.stopPropagation();
     setQuery(tab.query);
     setResponse(tab.response);
+    setVariables(tab.variables);
+    console.log( '🚨: ', tab )
+
     setTabs((prevState) => {
       return prevState.map((t) =>
         t.id === tab.id ? { ...t, active: true } : { ...t, active: false }
@@ -127,12 +135,15 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
 
       setQuery(newTab.query);
       setResponse(newTab.response);
+      setVariables(newTab.variables);
     }
 
     setTabs((prevState) => {
       return prevState.filter((el) => el.id !== tab.id);
     });
   };
+  console.log( '🌻:', variables )
+
 
   // console.log( '🆘: ', tabs )
 

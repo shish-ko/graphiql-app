@@ -34,6 +34,8 @@ export const MainPage: React.FC = () => {
   };
 
   const getVariables = (data: string) => {
+      console.log( '⭐: ', data )
+
     setVariables(data);
   };
 
@@ -63,6 +65,8 @@ export const MainPage: React.FC = () => {
           setQuery={setQuery}
           response={response}
           setResponse={setResponse}
+          variables={variables}
+          setVariables={setVariables}
         />
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
