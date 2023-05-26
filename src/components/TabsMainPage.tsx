@@ -98,7 +98,7 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
     e.stopPropagation();
     const index = tabs.findIndex((t) => t.id === tab.id);
 
-    if (index === tabs.length - 1 && tab.active) {
+    if (tab.active) {
       setTabs((prevState) => {
         return prevState.map((t, i) =>
           i === index - 1 ? { ...t, active: true } : { ...t, active: false }
