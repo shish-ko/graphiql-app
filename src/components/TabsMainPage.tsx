@@ -31,35 +31,38 @@ const InnerButton = styled('button')({
   fontSize: '18px',
   width: '15px',
   height: '15px',
+  cursor: 'pointer',
 });
 
 interface ITab {
   id: string;
   query: string;
+  response: string;
   title: string;
   active: boolean;
 }
 
 interface ITabsMainPage {
   query: string;
-  setQuery: () => void;
+  setQuery: (arg: string) => void;
+  response: string;
+  setResponse: (arg: string) => void;
 }
 
-const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery }) => {
+const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setResponse }) => {
   const [tabs, setTabs] = useState<ITab[]>([
     {
       id: uuidv4(),
       title: 'New tab',
       query: query,
+      response: response,
       active: true,
     },
   ]);
 
-  console.log('⭐: ', query);
-
   const addTab = () => {
     if (tabs) {
-      const tab: ITab = { id: uuidv4(), title: 'New tab', query: '', active: false };
+      const tab: ITab = { id: uuidv4(), title: 'New tab', query: '', response: '', active: false };
       setTabs((prevState) => {
         return prevState.concat(tab);
       });
@@ -68,35 +71,48 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery }) => {
           t.id === tab.id ? { ...t, active: true } : { ...t, active: false }
         );
       });
+      setQuery('');
+      setResponse('');
     }
   };
 
-  const setActiveButton = (id: string) => {
+  useEffect(() => {
     setTabs((prevState) => {
-      return prevState.map((t) => (t.id === id ? { ...t, active: true } : { ...t, active: false }));
+      return prevState.map((t) => (t.active ? { ...t, query, response } : { ...t }));
+    });
+  }, [query, response]);
+
+
+  const setActiveButton = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: ITab) => {
+    e.stopPropagation();
+    setQuery(tab.query);
+    setResponse(tab.response);
+    setTabs((prevState) => {
+      return prevState.map((t) =>
+        t.id === tab.id ? { ...t, active: true } : { ...t, active: false }
+      );
     });
   };
 
-  const deleteTab = (id: string) => {
-    for (let i = 0; i < tabs.length; i++) {
-      if (tabs[i].id === id) {
-        tabs[i - 1].active = true;
-        return tabs;
-      }
+  const deleteTab = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, tab: ITab) => {
+    e.stopPropagation();
+    const index = tabs.findIndex((t) => t.id === tab.id);
+
+    if (index === tabs.length - 1 && tab.active) {
+      setTabs((prevState) => {
+        return prevState.map((t, i) =>
+          i === index - 1 ? { ...t, active: true } : { ...t, active: false }
+        );
+      });
     }
 
     setTabs((prevState) => {
-      return prevState.filter((el) => el.id !== id);
+      return prevState.filter((el) => el.id !== tab.id);
     });
-
-    console.log('⭐:124 ', tabs);
-
-    // setTabs((prevState) => {
-    //   return prevState.map((t) => (t[0] ? { ...t, active: true } : { ...t, active: false }));
-    // });
   };
 
-  useEffect(() => {}, [tabs]);
+  console.log( '🆘: ', tabs )
+
 
   return (
     <div>
@@ -105,14 +121,14 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery }) => {
           {tabs.map((t) => (
             <TabButton
               key={t.id}
-              onClick={() => setActiveButton(t.id)}
+              onClick={(e) => setActiveButton(e, t)}
               style={{
                 backgroundColor: t.active ? indigo[700] : blueGrey[100],
                 color: t.active ? blue[100] : blue[700],
               }}
             >
               <EditableText initText={t.title} active={t.active} />
-              <InnerButton onClick={() => deleteTab(t.id)}>
+              <InnerButton onClick={(e) => deleteTab(e, t)}>
                 <img src={cross} style={{ width: '100%', height: '100%' }} alt="cross" />
               </InnerButton>
             </TabButton>

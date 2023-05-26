@@ -58,7 +58,12 @@ export const MainPage: React.FC = () => {
           backgroundColor: '#f1f2f4',
         }}
       >
-        <TabsMainPage query={query} setQuery={setQuery} />
+        <TabsMainPage
+          query={query}
+          setQuery={setQuery}
+          response={response}
+          setResponse={setResponse}
+        />
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
