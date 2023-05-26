@@ -66,9 +66,17 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
     },
   ]);
 
+
   const addTab = () => {
     if (tabs) {
-      const tab: ITab = {id: uuidv4(), title: 'New tab', query: '', response: '', variables: '', active: false };
+      const tab: ITab = {
+        id: uuidv4(),
+        title: 'New tab',
+        query: '',
+        response: '',
+        variables: '',
+        active: false,
+      };
       setTabs((prevState) => {
         return prevState.concat(tab);
       });
@@ -85,16 +93,18 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
 
   useEffect(() => {
     setTabs((prevState) => {
-      return prevState.map((t) => (t.active ? { ...t, query, response, variables } : { ...t }));
+      return prevState.map((t) => (t.active ? { ...t, query, response } : { ...t }));
     });
-  }, [query, response, variables]);
+  }, [query, response]);
 
   const setActiveButton = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: ITab) => {
     e.stopPropagation();
+    console.log( '⭐: ', tab )
+
     setQuery(tab.query);
     setResponse(tab.response);
     setVariables(tab.variables);
-    console.log( '🚨: ', tab )
+
 
     setTabs((prevState) => {
       return prevState.map((t) =>
@@ -142,7 +152,7 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
       return prevState.filter((el) => el.id !== tab.id);
     });
   };
-  console.log( '🌻:', variables )
+  // console.log( '🌻:', variables )
 
 
   // console.log( '🆘: ', tabs )
