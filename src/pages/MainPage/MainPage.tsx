@@ -57,7 +57,7 @@ export const MainPage: React.FC = () => {
       >
         <TabsMainPage
           query={query}
-          setQuery={sendQuery}
+          setQuery={setQuery}
           response={response}
           setResponse={setResponse}
           variables={variables}
@@ -113,7 +113,7 @@ export const MainPage: React.FC = () => {
                   </Button>
                 </Box>
               </Stack>
-              <SlideBox setValue={setVariables} />
+              <SlideBox setValue={setVariables} value={variables} />
             </Stack>
           </Borders>
           <Borders style={{ flex: 1, overflow: 'auto' }}>

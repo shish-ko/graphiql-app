@@ -46,14 +46,21 @@ interface ITab {
 
 interface ITabsMainPage {
   query: string;
-  setQuery: (arg: string) => void;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
   response: string;
-  setResponse: (arg: string) => void;
+  setResponse: React.Dispatch<React.SetStateAction<string>>;
   variables: string;
-  setVariables: (arg: string) => void;
+  setVariables: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setResponse, variables, setVariables }) => {
+const TabsMainPage: FC<ITabsMainPage> = ({
+  query,
+  setQuery,
+  response,
+  setResponse,
+  variables,
+  setVariables,
+}) => {
   const showMsg = useAlert();
   const [tabs, setTabs] = useState<ITab[]>([
     {
@@ -66,8 +73,11 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
     },
   ]);
 
-
   const addTab = () => {
+    if( tabs.length > 4){
+      showMsg({ type: 'info', content: 'No more than five tabs are allowed'})
+      return;
+    }
     if (tabs) {
       const tab: ITab = {
         id: uuidv4(),
@@ -93,18 +103,15 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
 
   useEffect(() => {
     setTabs((prevState) => {
-      return prevState.map((t) => (t.active ? { ...t, query, response } : { ...t }));
+      return prevState.map((t) => (t.active ? { ...t, query, response, variables } : { ...t }));
     });
-  }, [query, response]);
+  }, [query, response, variables]);
 
   const setActiveButton = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: ITab) => {
     e.stopPropagation();
-    console.log( '⭐: ', tab )
-
     setQuery(tab.query);
     setResponse(tab.response);
     setVariables(tab.variables);
-
 
     setTabs((prevState) => {
       return prevState.map((t) =>
@@ -152,10 +159,6 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
       return prevState.filter((el) => el.id !== tab.id);
     });
   };
-  // console.log( '🌻:', variables )
-
-
-  // console.log( '🆘: ', tabs )
 
   return (
     <div>
