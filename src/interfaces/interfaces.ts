@@ -1,5 +1,6 @@
 import { AlertColor } from '@mui/material';
 import { store } from '../store/reduxStore';
+import React from 'react';
 
 export interface IUserSlice {
   isLogin: boolean;
@@ -25,4 +26,22 @@ export interface IOfType {
   kind: string;
   name?: string | null;
   ofType?: IOfType | null;
+}
+
+export interface ITab {
+  id: string;
+  query: string;
+  response: string;
+  variables: string;
+  title: string;
+  active: boolean;
+}
+
+export interface ITabsMainPage {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  response: string;
+  setResponse: React.Dispatch<React.SetStateAction<string>>;
+  variables: string;
+  setVariables: React.Dispatch<React.SetStateAction<string>>;
 }
