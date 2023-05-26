@@ -18,9 +18,6 @@ const TabButton = styled('div')({
   transition: 'all',
   transitionDuration: '300ms',
   cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: blue[900],
-  },
 });
 
 const InnerButton = styled('button')({
@@ -31,11 +28,12 @@ const InnerButton = styled('button')({
   width: '15px',
   height: '15px',
   cursor: 'pointer',
-
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 });
+
+
 
 const TabsMainPage: FC<ITabsMainPage> = ({
   query,
