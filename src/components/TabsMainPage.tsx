@@ -4,6 +4,7 @@ import { blue, blueGrey, indigo } from '@mui/material/colors';
 import EditableText from '~compos/EditableText';
 import { uuidv4 } from '~utils/uuidv4';
 import cross from './../assets/cross.png';
+import { useAlert } from '~utils/userHooks';
 
 const TabCss = styled(Tab)({
   '&.Mui-selected': {
@@ -50,6 +51,7 @@ interface ITabsMainPage {
 }
 
 const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setResponse }) => {
+  const showMsg = useAlert();
   const [tabs, setTabs] = useState<ITab[]>([
     {
       id: uuidv4(),
@@ -82,7 +84,6 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
     });
   }, [query, response]);
 
-
   const setActiveButton = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: ITab) => {
     e.stopPropagation();
     setQuery(tab.query);
@@ -96,14 +97,36 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
 
   const deleteTab = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, tab: ITab) => {
     e.stopPropagation();
+
+    if (tabs.length < 2) {
+      showMsg({ type: 'error', content: "You can't delete the last tab" });
+      return;
+    }
+
     const index = tabs.findIndex((t) => t.id === tab.id);
 
+    let newTab: ITab;
+
     if (tab.active) {
-      setTabs((prevState) => {
-        return prevState.map((t, i) =>
-          i === index - 1 ? { ...t, active: true } : { ...t, active: false }
-        );
-      });
+      if (index === 0 && tabs.length > 1) {
+        setTabs((prevState) => {
+          return prevState.map((t, i) =>
+            i === index + 1 ? { ...t, active: true } : { ...t, active: false }
+          );
+        });
+        newTab = tabs[index + 1];
+      } else {
+        setTabs((prevState) => {
+          return prevState.map((t, i) =>
+            i === index - 1 ? { ...t, active: true } : { ...t, active: false }
+          );
+        });
+
+        newTab = tabs[index - 1];
+      }
+
+      setQuery(newTab.query);
+      setResponse(newTab.response);
     }
 
     setTabs((prevState) => {
@@ -111,8 +134,7 @@ const TabsMainPage: FC<ITabsMainPage> = ({ query, setQuery, response, setRespons
     });
   };
 
-  console.log( '🆘: ', tabs )
-
+  // console.log( '🆘: ', tabs )
 
   return (
     <div>
