@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Stack, styled } from '@mui/material';
-import { blue, blueGrey, indigo } from '@mui/material/colors';
+import { blueGrey, indigo } from '@mui/material/colors';
 import EditableText from '~compos/EditableText';
 import { uuidv4 } from '~utils/uuidv4';
 import { useAlert } from '~utils/userHooks';
@@ -9,15 +9,15 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const TabButton = styled('div')({
-  borderRadius: '10px',
   display: 'flex',
-  height: '40px',
-  padding: '3px 10px',
   justifyContent: 'center',
   alignItems: 'center',
+  height: '40px',
+  padding: '3px 10px',
   transition: 'all',
   transitionDuration: '300ms',
   cursor: 'pointer',
+  minWidth: 'max-content',
 });
 
 const InnerButton = styled('button')({
@@ -25,15 +25,17 @@ const InnerButton = styled('button')({
   border: 'none',
   backgroundColor: 'inherit',
   fontSize: '18px',
-  width: '15px',
-  height: '15px',
+  width: '20px',
+  height: '20px',
   cursor: 'pointer',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  '.MuiSvgIcon-root': {
+    width: '100%',
+    height: '100%',
+  },
 });
-
-
 
 const TabsMainPage: FC<ITabsMainPage> = ({
   query,
@@ -44,9 +46,11 @@ const TabsMainPage: FC<ITabsMainPage> = ({
   setVariables,
 }) => {
   const showMsg = useAlert();
+
+  const id = uuidv4();
   const [tabs, setTabs] = useState<ITab[]>([
     {
-      id: uuidv4(),
+      id: id,
       title: 'New tab',
       query: query,
       response: response,
@@ -54,6 +58,25 @@ const TabsMainPage: FC<ITabsMainPage> = ({
       active: true,
     },
   ]);
+
+  useEffect(() => {
+    if (localStorage.getItem('gql-team-shish-ko')) {
+      const localStorageTabs: ITab[] = JSON.parse(
+        localStorage.getItem('gql-team-shish-ko') as string
+      );
+      setTabs(localStorageTabs);
+      const activeTab = localStorageTabs.find((t) => t.active) as ITab;
+      setQuery(activeTab.query);
+      setResponse(activeTab.response);
+      setVariables(activeTab.variables);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (tabs[0].id !== id) {
+      localStorage.setItem('gql-team-shish-ko', JSON.stringify(tabs));
+    }
+  }, [tabs]);
 
   const addTab = () => {
     if (tabs.length > 4) {
@@ -151,19 +174,26 @@ const TabsMainPage: FC<ITabsMainPage> = ({
         position="relative"
         style={{ marginBottom: '10px' }}
       >
-        <Stack direction="row" justifyContent="start" width="50%" gap={1} position="relative">
+        <Stack
+          direction="row"
+          justifyContent="start"
+          width="80%"
+          gap={1}
+          position="relative"
+          style={{ overflowX: 'auto', scrollbarWidth: 'none' }}
+        >
           {tabs.map((t) => (
             <TabButton
               key={t.id}
               onClick={(e) => setActiveButton(e, t)}
               style={{
-                backgroundColor: t.active ? indigo[700] : blueGrey[100],
-                color: t.active ? blue[100] : blue[700],
+                color: t.active ? indigo[700] : blueGrey[200],
+                borderBottom: `2px solid ${t.active ? indigo[700] : ''}`,
               }}
             >
-              <EditableText initText={t.title} active={t.active} />
+              <EditableText initText={t.title} active={t.active} setTabs={setTabs} />
               <InnerButton onClick={(e) => deleteTab(e, t)}>
-                <ClearIcon htmlColor="#fff" />
+                <ClearIcon htmlColor="gray" />
               </InnerButton>
             </TabButton>
           ))}
