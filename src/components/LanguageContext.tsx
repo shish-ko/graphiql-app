@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, ReactNode } from 'react';
+import { langKey } from '~utils/localization';
 
 const LanguageContext = React.createContext({
   language: 'en',
@@ -7,8 +8,20 @@ const LanguageContext = React.createContext({
 
 export const useLanguageContext = () => useContext(LanguageContext);
 
-export default function LanguageContextProvider({ children }) {
+interface LanguageContextProviderProps {
+  children: ReactNode;
+}
+
+export default function LanguageContextProvider({ children }: LanguageContextProviderProps) {
   const [language, changeLanguage] = useState('en');
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem(langKey);
+    if (storedLanguage) {
+      changeLanguage(storedLanguage);
+    }
+  }, []);
+
   return (
     <LanguageContext.Provider value={{ language, changeLanguage }}>
       {children}

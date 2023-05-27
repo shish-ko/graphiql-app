@@ -4,6 +4,8 @@ import { useLanguageContext } from '../components/LanguageContext';
 import en from '../data/en';
 import ru from '../data/ru';
 
+export const langKey = 'lang';
+
 export default function useTranslation() {
   const { language } = useLanguageContext();
 
@@ -13,5 +15,6 @@ export default function useTranslation() {
   });
 
   localization.setLanguage(language);
+  localStorage.setItem(langKey, language);
   return localization;
 }
