@@ -2,19 +2,22 @@ import { Button, Stack, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BurgerMenu } from './BurgerMenu';
+import useTranslation from '~utils/localization';
 
 export const Auth: React.FC = () => {
+  const localization = useTranslation();
+
   const isSmallScreen = useMediaQuery('(max-width: 680px)');
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const menuLinks = [
     {
-      text: 'Sign up',
+      text: localization.auth.signup,
       onClick: () => navigate('/signup'),
     },
     {
-      text: 'Log in',
+      text: localization.auth.login,
       onClick: () => navigate('/login'),
     },
   ];
@@ -27,7 +30,7 @@ export const Auth: React.FC = () => {
           sx={{ minWidth: 'fit-content' }}
           onClick={() => navigate('/signup')}
         >
-          Sign up
+          {localization.auth.signup}
         </Button>
       )}
       {!isSmallScreen && (
@@ -36,7 +39,7 @@ export const Auth: React.FC = () => {
           onClick={() => navigate('/login')}
           sx={{ minWidth: 'fit-content' }}
         >
-          Log in
+          {localization.auth.login}
         </Button>
       )}
       {isSmallScreen && <BurgerMenu items={menuLinks} />}

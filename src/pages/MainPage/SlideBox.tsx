@@ -5,6 +5,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import useTranslation from '~utils/localization';
 
 interface ISlideBoxProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;
@@ -13,6 +14,7 @@ interface ISlideBoxProps {
 
 export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue, value }: ISlideBoxProps) => {
   const [isCodeVisible, setCodeVisible] = useState(false);
+  const localization = useTranslation();
 
   const toggleCodeVisibility = () => {
     setCodeVisible(!isCodeVisible);
@@ -28,7 +30,7 @@ export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue, value }: ISlideBo
       >
         <Stack direction="row" gap={1}>
           <Typography component="div" variant="codeTitle">
-            VARIABLES
+            {localization.main.variables}
           </Typography>
           <Typography component="div" variant="codeTitle">
             HEADERS
