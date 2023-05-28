@@ -28,13 +28,8 @@ export const SlideBox: React.FC<ISlideBoxProps> = ({ setValue, value }: ISlideBo
         direction="row"
         gap={1}
       >
-        <Stack direction="row" gap={1}>
-          <Typography component="div" variant="codeTitle">
-            {localization.main.variables}
-          </Typography>
-          <Typography component="div" variant="codeTitle">
-            HEADERS
-          </Typography>
+        <Stack direction="row">
+          <Typography variant="codeTitle">{localization.main.variables}</Typography>
         </Stack>
         {isCodeVisible ? (
           <ArrowDropDownIcon

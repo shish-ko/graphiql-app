@@ -1,13 +1,11 @@
 import { Box, Button, Stack, styled, useMediaQuery } from '@mui/material';
-import React, { Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useQuery } from '~utils/userHooks';
-import { Documentation } from '~compos/Documentation';
-import { Await, useLoaderData } from 'react-router-dom';
 import { SideButton } from '~compos/UI_components';
-import { GraphQLSchema, IntrospectionQuery } from 'graphql';
+import { GraphQLSchema } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
 import TabsMainPage from '~compos/TabsMainPage';
@@ -21,9 +19,10 @@ const Borders = styled(Box)(() => ({
     '0px 6px 20px rgba(59, 76, 106, .13), 0px 1.34018px 4.46726px rgba(59, 76, 106, .0774939), 0px .399006px 1.33002px rgba(59, 76, 106, .0525061)',
 }));
 
+const Documentation = lazy(() => import('../../components/Documentation'));
+
 export const MainPage: React.FC = () => {
   const localization = useTranslation();
-  const defered = useLoaderData() as { data: IntrospectionQuery };
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
   const [response, setResponse] = useState('');
@@ -44,11 +43,7 @@ export const MainPage: React.FC = () => {
           </SideButton>
         }
       >
-        <Await resolve={defered.data}>
-          {(schema: IntrospectionQuery) => (
-            <Documentation schema={schema} schemaSetter={setSchema} />
-          )}
-        </Await>
+        <Documentation schemaSetter={setSchema} />
       </Suspense>
       <Borders
         sx={{
