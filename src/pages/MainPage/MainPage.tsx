@@ -23,7 +23,6 @@ const Documentation = lazy(() => import('../../components/Documentation'));
 
 export const MainPage: React.FC = () => {
   const localization = useTranslation();
-  const defered = useLoaderData() as { data: IntrospectionQuery };
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
   const [response, setResponse] = useState('');

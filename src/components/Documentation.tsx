@@ -26,7 +26,7 @@ interface IDocProps {
   schemaSetter: React.Dispatch<React.SetStateAction<GraphQLSchema | undefined>>;
 }
 
-export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDocProps) => {
+export const Documentation: React.FC<IDocProps> = ({ schemaSetter }: IDocProps) => {
   const localization = useTranslation();
   const [isDocOpen, setIsDocOpen] = useState(false);
   const schema = useLoaderData() as IntrospectionQuery;

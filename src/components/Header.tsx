@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
           >
             <Logo />
             {!isSmallScreen && <Typography variant="title">Graphql playground</Typography>}
-            <Stack direction="row" gap={4}>
+            <Stack direction="row" gap={4} alignItems="center">
               <LangSwitcher />
               {user ? <AuthLoggedIn /> : <Auth />}
             </Stack>
