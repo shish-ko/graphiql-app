@@ -1,14 +1,16 @@
 import { ImageCarousel } from '~compos/Carousel';
-import { welcome } from '../../../data/welcome-page';
 import { Stack, Typography } from '@mui/material';
+import useTranslation from '~utils/localization';
 
 export const TeamInfo: React.FC = () => {
+  const localization = useTranslation();
+
   return (
     <Stack direction={'column'} spacing={{ xs: 1, sm: 4 }} useFlexGap>
       <Typography variant="h4" style={{ textAlign: 'center' }} color="secondary">
-        About our team
+        {localization.aboutTeam}
       </Typography>
-      <ImageCarousel carousel={welcome.team} />
+      <ImageCarousel carousel={Object.values(localization.team)} />
     </Stack>
   );
 };

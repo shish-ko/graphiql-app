@@ -5,6 +5,8 @@ import { Logo } from './Logo';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { authState } from '~configs/firebase';
 import { AuthLoggedIn } from './AuthLoggedIn';
+import LangSwitcher from './LangSwitcher';
+import Stack from '@mui/system/Stack';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -61,7 +63,10 @@ export const Header: React.FC = () => {
           >
             <Logo />
             {!isSmallScreen && <Typography variant="title">Graphql playground</Typography>}
-            {user ? <AuthLoggedIn /> : <Auth />}
+            <Stack direction="row" gap={4}>
+              <LangSwitcher />
+              {user ? <AuthLoggedIn /> : <Auth />}
+            </Stack>
           </Container>
         </HeaderWrapper>
       </AppBar>

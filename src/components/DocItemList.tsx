@@ -2,16 +2,20 @@ import { Divider, List, ListItem, Typography } from '@mui/material';
 import { IntrospectionType } from 'graphql';
 import React, { Fragment } from 'react';
 import { DocItem } from './DocItem';
+import useTranslation from '~utils/localization';
 
 interface IDocItemListProps {
   type: IntrospectionType;
   stateSetter: (typeName: string) => void;
 }
 
+
 export const DocItemList: React.FC<IDocItemListProps> = ({
   type,
   stateSetter,
 }: IDocItemListProps) => {
+  const localization = useTranslation();
+
   let render;
   if (type.kind === 'SCALAR' || type.kind === 'ENUM') {
     render = (
@@ -46,7 +50,7 @@ export const DocItemList: React.FC<IDocItemListProps> = ({
       </>
     );
   } else {
-    return <h2>Error</h2>;
+    return <h2>{localization.docs.error}</h2>;
   }
   return <List>{render}</List>;
 };

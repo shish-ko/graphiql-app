@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { IAlertPayload, storeDispatch, storeState } from '~interfaces/interfaces';
 import { invokeAlert } from '~store/alertSlice';
+import useTranslation from './localization';
 
 export const useAppSelector: TypedUseSelectorHook<storeState> = useSelector;
 export const useAppDispatch = useDispatch<storeDispatch>;
@@ -16,18 +17,20 @@ export const useAlert = () => {
 };
 
 export const useQuery = () => {
+  const localization = useTranslation();
+
   const hook = async (
     setResponse: (value: React.SetStateAction<string>) => void,
     query: string,
     variablesString?: string
   ) => {
-    setResponse('Waiting for response...');
+    setResponse(localization.main.responseWait);
     let variables;
     try {
       if (variablesString) variables = JSON.parse(variablesString);
     } catch (e) {
       if (e && typeof e === 'object' && 'message' in e) {
-        return setResponse('Variables mistake: ' + (e.message as { message: string }));
+        return setResponse(localization.errors.mistake + (e.message as { message: string }));
       }
     }
     const res = await fetch('https://countries.trevorblades.com/', {
@@ -42,6 +45,7 @@ export const useQuery = () => {
 };
 
 export const useDocumentation = (schema: IntrospectionQuery) => {
+  const localization = useTranslation();
   const showMsg = useAlert();
   const [typeToDisplay, setTypeToDisplay] = useState<IntrospectionType>();
   const [typesHistory, setTypesHistory] = useState<IntrospectionType[]>([]);
@@ -56,7 +60,7 @@ export const useDocumentation = (schema: IntrospectionQuery) => {
       setTypeToDisplay(schemaType);
       newHistory.length > 1 ? setIsBackPossible(true) : setIsBackPossible(false);
     } else {
-      showMsg({ type: 'error', content: 'Something went wrong...' });
+      showMsg({ type: 'error', content: localization.errors.unknownError });
     }
   };
 
