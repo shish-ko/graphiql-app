@@ -69,7 +69,7 @@ export const MainPage: React.FC = () => {
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
           width="100%"
-          minHeight="100%"
+          minHeight="calc(100% - 50px)"
           gap={1}
         >
           <Borders

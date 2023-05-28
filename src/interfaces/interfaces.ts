@@ -45,3 +45,9 @@ export interface ITabsMainPage {
   variables: string;
   setVariables: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface IEditableInput {
+  initText: string;
+  active: boolean;
+  setTabs: React.Dispatch<React.SetStateAction<ITab[]>>;
+}
