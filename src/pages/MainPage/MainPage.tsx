@@ -11,6 +11,7 @@ import { GraphQLSchema, IntrospectionQuery } from 'graphql';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { SlideBox } from './SlideBox';
 import TabsMainPage from '~compos/TabsMainPage';
+import useTranslation from '~utils/localization';
 
 const Borders = styled(Box)(() => ({
   padding: '10px',
@@ -21,6 +22,7 @@ const Borders = styled(Box)(() => ({
 }));
 
 export const MainPage: React.FC = () => {
+  const localization = useTranslation();
   const defered = useLoaderData() as { data: IntrospectionQuery };
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState('');
@@ -38,7 +40,7 @@ export const MainPage: React.FC = () => {
       <Suspense
         fallback={
           <SideButton color="warning" variant="contained">
-            API documentation is loading ...
+            {localization.main.apiLoading}
           </SideButton>
         }
       >
@@ -92,9 +94,7 @@ export const MainPage: React.FC = () => {
                   value={query}
                   theme={githubLight}
                   onChange={(val) => setQuery(val)}
-                  placeholder={
-                    schema ? '# Write your query or mutation here' : 'Wait for schema...'
-                  }
+                  placeholder={schema ? localization.main.queryWait : localization.main.shemaWait}
                   style={{ flex: 1, overflow: 'auto' }}
                 />
                 <Box>

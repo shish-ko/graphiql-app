@@ -1,11 +1,13 @@
+import useTranslation from '~utils/localization';
 import { Template } from './template/Template';
-import { welcome } from '../../../data/welcome-page';
 
 export const Rss: React.FC = () => {
+  const localization = useTranslation();
+
   return (
     <Template
-      text={welcome.rss.text}
-      imgUrl={welcome.rss.link}
+      text={localization.rss.text}
+      imgUrl={localization.rss.link}
       direction={{ xs: 'column', sm: 'row' }}
     />
   );

@@ -7,6 +7,7 @@ import { schemaFetcher } from '~utils/docParser';
 import { useDocumentation } from '~utils/userHooks';
 import { DocItemList } from './DocItemList';
 import { SideButton } from './UI_components';
+import useTranslation from '~utils/localization';
 
 export const loader = () => {
   const data = schemaFetcher();
@@ -33,6 +34,7 @@ interface IDocProps {
 }
 
 export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDocProps) => {
+  const localization = useTranslation();
   const [isDocOpen, setIsDocOpen] = useState(false);
   const { typeSetter, typeToDisplay, getBack, isBackPossible } = useDocumentation(schema);
   useEffect(() => {
@@ -51,7 +53,7 @@ export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDo
         <DocHeader>
           <Button sx={{ color: '#444' }} onClick={getBack} disabled={!isBackPossible}>
             <ArrowLeft />
-            Back
+            {localization.docs.back}
           </Button>
           <Typography variant="h5">Api Doc</Typography>
           <Button
@@ -71,7 +73,7 @@ export const Documentation: React.FC<IDocProps> = ({ schema, schemaSetter }: IDo
           zIndex: 100,
         }}
       >
-        Open doc
+        {localization.docs.open}
       </SideButton>
     </>
   );

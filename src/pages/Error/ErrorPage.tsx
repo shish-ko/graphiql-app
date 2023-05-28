@@ -1,8 +1,11 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useTranslation from '~utils/localization';
 
 export const ErrorPage: React.FC = () => {
+  const localization = useTranslation();
+
   return (
     <Box sx={{ minWidth: '100%' }}>
       <Typography variant="h5">&#123;</Typography>
@@ -15,7 +18,7 @@ export const ErrorPage: React.FC = () => {
         404
       </Typography>
       <Typography variant="h4" sx={{ mb: 5, textAlign: 'center' }}>
-        Sorry, the page you are looking for doesn&apos;t exist
+        {localization.errorPage.noPage}
       </Typography>
       <Stack>
         <Typography variant="h5">&nbsp;&nbsp;&nbsp;&quot;solutions&quot;:</Typography>
@@ -23,7 +26,7 @@ export const ErrorPage: React.FC = () => {
           [
           <Link to={'/'}>
             <Button variant="text" color="warning">
-              &quot;Go to the main page&quot;
+              &quot;{localization.errorPage.toMain}&quot;
             </Button>
           </Link>
           ]

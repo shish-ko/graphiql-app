@@ -2,13 +2,14 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { generateText } from '~utils/generateParagraphs';
 
 import './About.scss';
-import { welcome } from '../../../../data/welcome-page';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { authState } from '~configs/firebase';
 import { Link } from 'react-router-dom';
+import useTranslation from '~utils/localization';
 
 export const About: React.FC = () => {
-  const text = generateText(welcome.about.text);
+  const localization = useTranslation();
+  const text = generateText(localization.about.text);
   const [user] = useAuthState(authState);
 
   return (
@@ -26,7 +27,7 @@ export const About: React.FC = () => {
             color="secondary"
             sx={{ textAlign: { xs: 'center', sm: 'center', md: 'start' } }}
           >
-            GraphQL IDE <br /> <small>for better development workflows!</small>
+            GraphQL IDE <br /> <small>{localization.aboutApp}</small>
           </Typography>
         </div>
         <Box sx={{ maxWidth: { xs: 'none', sm: 'none', md: '40rem' } }}>{text}</Box>
@@ -41,7 +42,7 @@ export const About: React.FC = () => {
         </Box>
       </Stack>
       <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-        <img className="image" src={welcome.about.link} alt="image" />
+        <img className="image" src={localization.about.link} alt="image" />
       </Box>
     </Stack>
   );

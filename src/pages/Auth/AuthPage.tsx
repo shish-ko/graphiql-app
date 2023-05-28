@@ -9,6 +9,7 @@ import { useAlert } from '~utils/userHooks';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { fBaseErrReader } from '~utils/utils';
+import useTranslation from '~utils/localization';
 
 const Form = styled('form')({
   maxWidth: '550px',
@@ -50,6 +51,7 @@ const InputField = styled(TextField)({
 });
 
 const AuthPage: FC = () => {
+  const localization = useTranslation();
   const location = useLocation();
   const isLogin = location.pathname === '/login';
   const showMsg = useAlert();
@@ -71,7 +73,7 @@ const AuthPage: FC = () => {
       try {
         setIsLoading(true);
         await signInWithEmailAndPassword(authState, data.email, data.password);
-        showMsg({ type: 'success', content: 'You are successfully logged in' });
+        showMsg({ type: 'success', content: localization.auth.loginSuccess });
         navigate('/main');
       } catch (e) {
         if (e instanceof FirebaseError)
@@ -83,7 +85,7 @@ const AuthPage: FC = () => {
       try {
         setIsLoading(true);
         await createUserWithEmailAndPassword(authState, data.email, data.password);
-        showMsg({ type: 'success', content: 'Account was successfully created' });
+        showMsg({ type: 'success', content: localization.auth.accountCreated });
       } catch (e) {
         if (e instanceof FirebaseError)
           return showMsg({ type: 'error', content: fBaseErrReader(e.message) });
@@ -100,7 +102,7 @@ const AuthPage: FC = () => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square borderRadius={2}>
         <PaperCss>
           <Typography component="h1" variant="h5">
-            {isLogin ? 'Log in' : 'Sign up'}
+            {isLogin ? localization.auth.login : localization.auth.signup}
           </Typography>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <InputField
@@ -127,7 +129,7 @@ const AuthPage: FC = () => {
               variant="outlined"
               margin="normal"
               fullWidth
-              label="Password"
+              label={localization.auth.password}
               type="password"
               id="password"
               error={!!errors.password}
@@ -136,8 +138,7 @@ const AuthPage: FC = () => {
                 required: true,
                 pattern: {
                   value: /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*]{8,}$/,
-                  message:
-                    'Minimum 8 symbols, at least one letter, one digit, one special character',
+                  message: localization.auth.passwordMessage,
                 },
               })}
               InputLabelProps={{ shrink: true }}
@@ -149,14 +150,14 @@ const AuthPage: FC = () => {
               color="primary"
               sx={{ marginTop: '20px', width: '150px' }}
             >
-              {isLogin ? 'Login' : 'Sign up'}
+              {isLogin ? localization.auth.login : localization.auth.signup}
             </Button>
             <Grid container marginTop={3}>
               <Grid item>
                 {isLogin ? (
-                  <Link to="/signup">Don&#39;t have an account? Create it</Link>
+                  <Link to="/signup">{localization.auth.noAccount}</Link>
                 ) : (
-                  <Link to="/login">Have already an account? Log in</Link>
+                  <Link to="/login">{localization.auth.accountExists}</Link>
                 )}
               </Grid>
             </Grid>

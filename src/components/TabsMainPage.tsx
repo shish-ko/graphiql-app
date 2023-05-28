@@ -7,6 +7,7 @@ import { useAlert } from '~utils/userHooks';
 import { ITab, ITabsMainPage } from '~interfaces/interfaces';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ClearIcon from '@mui/icons-material/Clear';
+import useTranslation from '~utils/localization';
 
 const TabButton = styled('div')({
   display: 'flex',
@@ -45,13 +46,15 @@ const TabsMainPage: FC<ITabsMainPage> = ({
   variables,
   setVariables,
 }) => {
+  const localization = useTranslation();
+
   const showMsg = useAlert();
 
   const id = uuidv4();
   const [tabs, setTabs] = useState<ITab[]>([
     {
-      id: id,
-      title: 'New tab',
+      id: uuidv4(),
+      title: localization.main.tabsText,
       query: query,
       response: response,
       variables: variables,
@@ -80,13 +83,13 @@ const TabsMainPage: FC<ITabsMainPage> = ({
 
   const addTab = () => {
     if (tabs.length > 4) {
-      showMsg({ type: 'info', content: 'No more than five tabs are allowed' });
+      showMsg({ type: 'info', content: localization.main.tabsMaxLimits });
       return;
     }
     if (tabs) {
       const tab: ITab = {
         id: uuidv4(),
-        title: 'New tab',
+        title: localization.main.tabsText,
         query: '',
         response: '',
         variables: '',
@@ -129,7 +132,7 @@ const TabsMainPage: FC<ITabsMainPage> = ({
     e.stopPropagation();
 
     if (tabs.length < 2) {
-      showMsg({ type: 'error', content: "You can't delete the last tab" });
+      showMsg({ type: 'error', content: localization.main.tabsMinLimits });
       return;
     }
 

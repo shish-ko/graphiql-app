@@ -5,8 +5,11 @@ import { authState } from '~configs/firebase';
 import { useAlert } from '~utils/userHooks';
 import { BurgerMenu } from './BurgerMenu';
 import { Stack } from '@mui/system';
+import useTranslation from '~utils/localization';
 
 export const AuthLoggedIn: React.FC = () => {
+  const localization = useTranslation();
+
   const isSmallScreen = useMediaQuery('(max-width: 680px)');
   const [user] = useAuthState(authState);
   const [signOut, loading, error] = useSignOut(authState);
@@ -18,13 +21,13 @@ export const AuthLoggedIn: React.FC = () => {
       showMsg({ type: 'error', content: error.message });
     }
     if (result) {
-      showMsg({ type: 'info', content: 'Logged out successfully!' });
+      showMsg({ type: 'info', content: localization.auth.logoutSuccess });
     }
   };
 
   const menuLink = [
     {
-      text: 'Log out',
+      text: localization.auth.logout,
       onClick: () => signOutHandler(),
     },
   ];
@@ -36,7 +39,7 @@ export const AuthLoggedIn: React.FC = () => {
       </Avatar>
       {!isSmallScreen && (
         <Button variant="contained" sx={{ ml: 1 }} onClick={signOutHandler} disabled={loading}>
-          Log out
+          {localization.auth.logout}
         </Button>
       )}
       {isSmallScreen && <BurgerMenu items={menuLink} />}

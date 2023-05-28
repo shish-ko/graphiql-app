@@ -1,10 +1,24 @@
-export const welcome = {
+export default {
+  auth: {
+    login: 'Log in',
+    signup: 'Sign up',
+    logout: 'Log out',
+    loginSuccess: 'You are successfully logged in!',
+    logoutSuccess: 'Logged out successfully!',
+    accountCreated: 'Account was successfully created',
+    invalidEmail: 'invalid email address',
+    password: 'Password',
+    passwordMessage: 'Minimum 8 symbols, at least one letter, one digit, one special character',
+    noAccount: "Don't have an account? Create it",
+    accountExists: 'Have already an account? Log in',
+  },
+  aboutApp: 'for better development workflows!',
   about: {
     text: {
       paragraph1:
         'GraphQL Playground is a graphical, interactive, in-browser GraphQL IDE, created by usage of React and based on GraphiQL.',
       paragraph2:
-        'It is absolutely free. All you need to do is to create your own account. You are only few steps away from getting access to your own kanban boards.',
+        'It is absolutely free. All you need to do is to create your own account. You are only few steps away from getting access to GraphQL Playground.',
       paragraph3: 'Click on the button below to begin.',
     },
     link: '/welcome/about-img.webp',
@@ -28,21 +42,45 @@ export const welcome = {
     },
     link: '/welcome/webdev.jpg',
   },
-  team: [
-    {
+  aboutTeam: 'About our team',
+  team: {
+    andrew: {
       image: '/welcome/andrew.jpg',
       title: 'Andrew',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quidem vel, adipisci ea reprehenderit',
     },
-    {
+    yuri: {
       image: '/welcome/webjsmaster.jpg',
       title: 'Yuri',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit ',
     },
-    {
+    hanna: {
       image: '/welcome/hanna.jpeg',
       title: 'Hanna',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem vel, adipisci ea reprehenderit',
     },
-  ],
+  },
+  main: {
+    tabsText: 'New tab',
+    tabsMaxLimits: 'No more than five tabs are allowed',
+    tabsMinLimits: "You can't delete the last tab",
+    apiLoading: 'API documentation is loading ...',
+    queryWait: '# Write your query or mutation here',
+    shemaWait: 'Wait for schema...',
+    responseWait: 'Waiting for response...',
+    variables: 'VARIABLES',
+  },
+  docs: {
+    open: 'Open doc',
+    back: 'Back',
+    error: 'Error',
+  },
+  errorPage: {
+    noPage: "Sorry, the page you are looking for doesn't exist",
+    toMain: 'Go to the main page',
+  },
+  errors: {
+    unknownError: 'Something went wrong...',
+    mistake: 'Variables mistake: ',
+  },
 };
